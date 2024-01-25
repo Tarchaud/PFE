@@ -4,12 +4,8 @@ Projet d'application Web permettant aux joueurs du MMORPG Wakfu de générer aut
 # Technos
 Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base de données.
 
-# Faire fonctionner le back
-docker build -t springboot/wakfubuilderapp .
-
-docker run -p 8080:8080 springboot/wakfubuilderapp
+# Lancer l'application
+docker-compose up --build
 
 # To do
-- Faire la persistence de données avec mongo DB pour les opérations CRUD codées, cf https://www.mongodb.com/compatibility/spring-boot
-
-- Faire le front avec Angular
+- Faire la persistence de données avec mongo DB pour les opérations CRUD codées, cf https://www.youtube.com/watch?v=qVNOw9TWwxo
