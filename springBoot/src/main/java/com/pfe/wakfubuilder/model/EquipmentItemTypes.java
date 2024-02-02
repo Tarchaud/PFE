@@ -21,7 +21,7 @@ public class EquipmentItemTypes {
     
     @Id
     @JsonProperty("id")
-    private String id;
+    private long id;
     private definition definition;
     private InfoTranslate title;
 
@@ -36,7 +36,7 @@ public class EquipmentItemTypes {
     }
 
     /* Getters */
-    public String getId() {
+    public long getId() {
         return id;
     }
 

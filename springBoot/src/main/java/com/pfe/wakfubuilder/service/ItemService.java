@@ -39,20 +39,4 @@ public class ItemService {
     public Item getItem(long id) {
         return items.stream().filter(item -> item.getId() == id).findFirst().orElse(null);
     }
-
-    public void deleteItem(long id) {
-        items.removeIf(item -> item.getId() == id);
-    }
-
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-    public void updateItem(long id, Item item) {
-        items.forEach(itemlambda -> {
-            if (itemlambda.getId() == id) {
-                items.set(items.indexOf(itemlambda), item);
-            }
-        });
-    }
 }

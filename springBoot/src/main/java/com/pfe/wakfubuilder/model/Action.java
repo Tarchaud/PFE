@@ -22,7 +22,7 @@ public class Action {
 
     @Id
     @JsonProperty("id")
-    private String id;
+    private long id;
     private definition definition;
     private InfoTranslate description;
 
@@ -37,7 +37,7 @@ public class Action {
     
     
     /* Getters */
-    public String getId() {
+    public long getId() {
         return id;
     }
 
