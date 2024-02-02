@@ -21,7 +21,8 @@ export interface effectI {
       areaShape : number;
       areaSize : number[];
       params : number[];
-    }
+    },
+    description ?: TranslationI;
   }
 }
 
