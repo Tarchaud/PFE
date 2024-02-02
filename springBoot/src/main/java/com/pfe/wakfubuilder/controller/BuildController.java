@@ -30,7 +30,7 @@ public class BuildController {
 
     @RequestMapping(method = RequestMethod.DELETE, value ="build/{id}")
     public void deleteBuild(@PathVariable long id) {
-        buildService.deleteService(id);
+        buildService.deleteBuild(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "builds")
