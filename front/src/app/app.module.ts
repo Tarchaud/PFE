@@ -1,17 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+//Modules
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+
+//Components
+import { AppComponent } from './app.component';
 import { MenuComponent } from './template/menu/menu.component';
 import { FooterComponent } from './template/footer/footer.component';
+import { AccueilComponent } from './pages/accueil/accueil.component';
+import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    AccueilComponent,
+    WikiItemsComponent
   ],
   imports: [
     SharedModule,
