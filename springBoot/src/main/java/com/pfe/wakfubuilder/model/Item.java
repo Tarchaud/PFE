@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 class definitionEffect {
     public int id;
     public int actionId;
@@ -24,7 +23,6 @@ class EquipEffect {
 class UseEffect {
     public Effect effect;
 }
-
 
 class BaseParameters {
     public int itemTypeId;

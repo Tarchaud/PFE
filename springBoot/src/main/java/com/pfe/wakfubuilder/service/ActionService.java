@@ -1,42 +1,29 @@
 package com.pfe.wakfubuilder.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.pfe.wakfubuilder.model.Action;
+import com.pfe.wakfubuilder.repository.ActionRepository;
 
 @Service
 public class ActionService {
     
-    private List<Action> actions;
+    private final ActionRepository actionRepository;
 
-    public ActionService() {
-        this.actions = new ArrayList<>();
-        loadActionsFromJson();
-    }
-
-    private void loadActionsFromJson() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            ClassPathResource resource = new ClassPathResource("db/actions.json");
-            Action[] actionsArray = objectMapper.readValue(resource.getInputStream(), Action[].class);
-            actions.addAll(Arrays.asList(actionsArray));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ActionService(ActionRepository actionRepository) {
+        this.actionRepository = actionRepository;
     }
 
     public List<Action> getActions() {
-        return actions;
+        return actionRepository.findAll();
     }
 
     public Action getAction(long id) {
-        return actions.stream().filter(action -> action.getId() == id).findFirst().orElse(null);
+        Optional<Action> optionalAction = actionRepository.findById(id);
+        return optionalAction.orElse(null);
     }
+    
 }

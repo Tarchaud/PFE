@@ -11,3 +11,4 @@ docker-compose up --build
 - Faire la persistence de données avec mongo DB pour les opérations CRUD codées, cf https://www.youtube.com/watch?v=qVNOw9TWwxo
 - Ajouter les items dans le model Build
 - Faire des routes spéciales pour les Items en fonction des equipmentItemTypes (plusieurs en paramètres)
+- Modifier l'accès aux données (aller les chercher sur mongoDB), en initialisant la db avec les json
