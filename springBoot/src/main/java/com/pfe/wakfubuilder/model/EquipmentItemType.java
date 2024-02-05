@@ -17,7 +17,7 @@ class definition {
 
 
 @Document(collection = "equipmentItemTypes")
-public class EquipmentItemTypes {
+public class EquipmentItemType {
     
     @Id
     @JsonProperty("id")
@@ -27,9 +27,9 @@ public class EquipmentItemTypes {
 
 
     /* Constructors */
-    public EquipmentItemTypes() {}
+    public EquipmentItemType() {}
 
-    public EquipmentItemTypes(definition definition, InfoTranslate title) {
+    public EquipmentItemType(definition definition, InfoTranslate title) {
         super();
         this.definition = definition;
         this.title = title;
