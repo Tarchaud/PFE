@@ -1,1 +1,46 @@
-<p>wiki-items works!</p>
+<div class="container">
+
+  <div class="div_filtre">
+
+    <div class="type_items">
+      <fieldset *ngIf="equipementType.map_equipementParentItemTypes.size > 0" >
+        <legend>Type d'item</legend>
+        <div class="liste_types">
+          <button *ngFor="let type of equipementType.map_equipementParentItemTypes | keyvalue" (click)="selectType(type.value)"  [class.selected]="isArrayEqual(type.value)">{{equipementType.map_equipementItemTypes.get(type.key)?.title?.fr}}</button>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="level_items">
+      <fieldset>
+        <legend>Level</legend>
+        <mat-slider min="0" max="230" step="1" showTickMarks discrete>
+          <input  matSliderStartThumb [(ngModel)]="levelFilter[0]" name="sliderStart">
+          <input  matSliderEndThumb [(ngModel)]="levelFilter[1]" name="sliderEnd">
+        </mat-slider>
+        <div>
+          level minimum: {{ levelFilter[0] }}
+        </div>
+        <div>
+          level maximum: {{ levelFilter[1] }}
+        </div>
+      </fieldset>
+    </div>
+    <div class="name_items">
+      <fieldset>
+        <legend>Nom</legend>
+        <input type="text" [(ngModel)]="nameItem"  placeholder="Recherche un item">
+      </fieldset>
+    </div>
+
+
+
+  </div>
+
+
+  <div class="div_liste">
+    <div class="liste_items" *ngIf="items.arr_items.length > 0" (scroll)="onScroll($event)">
+      <app-card-item *ngFor="let i of (items.arr_items | item:nameItem | level:levelFilter[0]:levelFilter[1]) | slice:0:toShow" [item]="i"></app-card-item>
+    </div>
+  </div>
+</div>
