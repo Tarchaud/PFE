@@ -11,6 +11,7 @@ import { MenuComponent } from './template/menu/menu.component';
 import { FooterComponent } from './template/footer/footer.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
+import { CardItemComponent } from './template/card-item/card-item.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
     MenuComponent,
     FooterComponent,
     AccueilComponent,
-    WikiItemsComponent
+    WikiItemsComponent,
+    CardItemComponent
   ],
   imports: [
     SharedModule,
