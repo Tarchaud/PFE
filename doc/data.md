@@ -2,7 +2,7 @@
 
 ## Item Rarity
 
-```json
+```js
 {
     0: "Commun",
     1: "Inhabituel",
