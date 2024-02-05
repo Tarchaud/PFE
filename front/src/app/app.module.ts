@@ -12,6 +12,7 @@ import { FooterComponent } from './template/footer/footer.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
 import { CardItemComponent } from './template/card-item/card-item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CardItemComponent } from './template/card-item/card-item.component';
   imports: [
     SharedModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
