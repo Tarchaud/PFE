@@ -15,7 +15,7 @@ target/
 /out-tsc
 /bazel-out
 
-/src/assets/data
+front/src/assets/data
 
 # Node
 npm-debug.log
@@ -39,7 +39,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+front/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
