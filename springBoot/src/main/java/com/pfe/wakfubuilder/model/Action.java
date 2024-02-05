@@ -5,16 +5,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class definition {
+class ActionDefinition {
     public int id;
     public String effect;
-}
-
-class description {
-    public String fr;
-    public String en;
-    public String es;
-    public String pt;
 }
 
 @Document(collection = "action")
@@ -23,13 +16,13 @@ public class Action {
     @Id
     @JsonProperty("id")
     private long id;
-    private definition definition;
+    private ActionDefinition definition;
     private InfoTranslate description;
 
     /* Constructors */
     public Action() {}
 
-    public Action(definition definition, InfoTranslate description) {
+    public Action(ActionDefinition definition, InfoTranslate description) {
         super();
         this.definition = definition;
         this.description = description;
@@ -41,7 +34,7 @@ public class Action {
         return id;
     }
 
-    public definition getDefinition() {
+    public ActionDefinition getDefinition() {
         return definition;
     }
     
@@ -50,7 +43,7 @@ public class Action {
     }
 
     /* Setters */
-    public void setDefinition(definition definition) {
+    public void setDefinition(ActionDefinition definition) {
         this.definition = definition;
     }
 

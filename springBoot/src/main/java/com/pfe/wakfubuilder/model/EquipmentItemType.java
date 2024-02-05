@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-class definition {
+class EquipmentItemTypeDefinition {
     public int id;
     public String parentId;
     public String[] equipmentPositions;
@@ -22,14 +22,14 @@ public class EquipmentItemType {
     @Id
     @JsonProperty("id")
     private long id;
-    private definition definition;
+    private EquipmentItemTypeDefinition definition;
     private InfoTranslate title;
 
 
     /* Constructors */
     public EquipmentItemType() {}
 
-    public EquipmentItemType(definition definition, InfoTranslate title) {
+    public EquipmentItemType(EquipmentItemTypeDefinition definition, InfoTranslate title) {
         super();
         this.definition = definition;
         this.title = title;
@@ -40,7 +40,7 @@ public class EquipmentItemType {
         return id;
     }
 
-    public definition getDefinition() {
+    public EquipmentItemTypeDefinition getDefinition() {
         return definition;
     }
     
@@ -49,7 +49,7 @@ public class EquipmentItemType {
     }
 
     /* Setters */
-    public void setDefinition(definition definition) {
+    public void setDefinition(EquipmentItemTypeDefinition definition) {
         this.definition = definition;
     }
 

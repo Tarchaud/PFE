@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-class definition {
+class StatesDefinition {
     public int id;
 }
 
@@ -16,14 +16,14 @@ public class States {
     @Id
     @JsonProperty("id")
     private String id;
-    private definition definition;
+    private StatesDefinition definition;
     private InfoTranslate title;
 
 
     /* Constructors */
     public States() {}
 
-    public States(definition definition, InfoTranslate title) {
+    public States(StatesDefinition definition, InfoTranslate title) {
         super();
         this.definition = definition;
         this.title = title;
@@ -34,7 +34,7 @@ public class States {
         return id;
     }
 
-    public definition getDefinition() {
+    public StatesDefinition getDefinition() {
         return definition;
     }
 
@@ -43,7 +43,7 @@ public class States {
     }
 
     /* Setters */
-    public void setDefinition(definition definition) {
+    public void setDefinition(StatesDefinition definition) {
         this.definition = definition;
     }
 

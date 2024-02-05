@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class definitionEffect {
+class DefinitionEffect {
     public int id;
     public int actionId;
     public int areaShape;
@@ -14,7 +14,7 @@ class definitionEffect {
 }
 
 class Effect {
-    public definitionEffect definition;
+    public DefinitionEffect definition;
 }
 
 class EquipEffect {
@@ -60,7 +60,7 @@ class ItemDef {
     public int[] properties;
 }
 
-class definition {
+class Definition {
     public ItemDef item;
     public UseEffect[] useEffects;
     public UseEffect[] useCriticalEffects;
@@ -73,14 +73,14 @@ public class Item {
     @Id
     @JsonProperty("id")
     private long id;
-    private definition definition;
+    private Definition definition;
     private InfoTranslate title;
     private InfoTranslate description;
 
     /* Constructors */
     public Item() {}
 
-    public Item(definition definition, InfoTranslate title, InfoTranslate description) {
+    public Item(Definition definition, InfoTranslate title, InfoTranslate description) {
         super();
         this.definition = definition;
         this.title = title;
@@ -92,7 +92,7 @@ public class Item {
         return id;
     }
 
-    public definition getDefinition() {
+    public Definition getDefinition() {
         return definition;
     }
 
@@ -105,7 +105,7 @@ public class Item {
     }
 
     /* Setters */
-    public void setDefinition(definition definition) {
+    public void setDefinition(Definition definition) {
         this.definition = definition;
     }
 
