@@ -8,6 +8,7 @@ Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base d
 docker-compose up --build
 
 # To do
-- Résoudre les problèmes de onnexion au lancement du docker-compose
+- Résoudre les problèmes de routes 
 - Ajouter les items dans le model Build
 - Faire des routes spéciales pour les Items en fonction des equipmentItemTypes (plusieurs en paramètres)
+- Suppr la branche API
