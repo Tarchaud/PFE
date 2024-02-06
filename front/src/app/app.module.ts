@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 //Modules
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
 import { AppComponent } from './app.component';
@@ -12,7 +13,10 @@ import { FooterComponent } from './template/footer/footer.component';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
 import { CardItemComponent } from './template/card-item/card-item.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RgpdComponent } from './pages/rgpd/rgpd.component';
+import { BuildsComponent } from './pages/builds/builds.component';
+import { CreateBuildComponent } from './pages/create-build/create-build.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FooterComponent,
     AccueilComponent,
     WikiItemsComponent,
-    CardItemComponent
+    CardItemComponent,
+    RgpdComponent,
+    BuildsComponent,
+    CreateBuildComponent,
+    LoginComponent
   ],
   imports: [
     SharedModule,

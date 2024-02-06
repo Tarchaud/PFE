@@ -34,6 +34,11 @@ export class ItemService {
         this.arr_items = data.filter((item) => {
           return type.includes(item.definition.item.baseParameters.itemTypeId);
         });
+
+        //sort by level
+        this.arr_items = this.arr_items.sort((a, b) => {
+          return b.definition.item.level - a.definition.item.level;
+        });
       },
       error : (err) => {
         console.log(err);
