@@ -8,4 +8,6 @@ Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base d
 docker-compose up --build
 
 # To do
-- Faire la persistence de données avec mongo DB pour les opérations CRUD codées, cf https://www.youtube.com/watch?v=qVNOw9TWwxo
+- Ajouter les items dans le model Build
+- Faire des routes spéciales pour les Items en fonction des equipmentItemTypes (plusieurs en paramètres)
+- Suppr la branche API

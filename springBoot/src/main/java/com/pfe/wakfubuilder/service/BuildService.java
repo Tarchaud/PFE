@@ -26,7 +26,7 @@ public class BuildService {
         return builds.stream().filter(build -> build.getId() == id).findFirst().orElse(null);
     }
 
-    public void deleteService(long id) {
+    public void deleteBuild(long id) {
         builds.removeIf(build -> build.getId() == id);
     }
 
