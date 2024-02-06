@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'wiki-items', component: WikiItemsComponent },
   { path: 'liste-builds', component: BuildsComponent},
-  { path: 'create-build', component: CreateBuildComponent},
+  { path: 'creation-build', component: CreateBuildComponent},
   { path: 'login', component: LoginComponent},
   { path: 'mentions', component: RgpdComponent},
   { path: 'rgpd', component: RgpdComponent},
