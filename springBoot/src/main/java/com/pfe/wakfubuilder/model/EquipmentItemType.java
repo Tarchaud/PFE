@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 class EquipmentItemTypeDefinition {
     public int id;
     public String parentId;
@@ -15,13 +14,12 @@ class EquipmentItemTypeDefinition {
     public boolean isVisibleInAnimation;
 }
 
-
 @Document(collection = "equipmentItemTypes")
 public class EquipmentItemType {
     
     @Id
     @JsonProperty("id")
-    private long id;
+    private String id;
     private EquipmentItemTypeDefinition definition;
     private InfoTranslate title;
 
@@ -36,7 +34,7 @@ public class EquipmentItemType {
     }
 
     /* Getters */
-    public long getId() {
+    public String getId() {
         return id;
     }
 

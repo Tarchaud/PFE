@@ -22,7 +22,10 @@ public class EquipmentItemTypeService {
         return equipmentItemTypeRepository.findAll();
     }
 
-    public EquipmentItemType getEquipmentItemType(long id) {
+    public EquipmentItemType getEquipmentItemType(String id) {
+        if (id == null) {
+            return null;
+        }
         Optional<EquipmentItemType> optionalEquipmentItemType = equipmentItemTypeRepository.findById(id);
         return optionalEquipmentItemType.orElse(null);
     }

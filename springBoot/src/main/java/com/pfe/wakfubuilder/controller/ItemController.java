@@ -14,13 +14,13 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/items")
+    @GetMapping("/items")
     public List<Item> getItems() {
         return itemService.getItems();
     }
 
-    @RequestMapping("/item/{id}")
-    public Item getItem(@PathVariable long id) {
+    @GetMapping("/item/{id}")
+    public Item getItem(@PathVariable String id) {
         return itemService.getItem(id);
     }
 }

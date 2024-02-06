@@ -14,13 +14,13 @@ public class EquipmentItemTypeController {
     @Autowired
     private EquipmentItemTypeService equipmentItemTypeService;
 
-    @RequestMapping("/equipmentItemTypes")
+    @GetMapping("/equipmentItemTypes")
     public List<EquipmentItemType> getEquipmentItemTypes() {
         return equipmentItemTypeService.getEquipmentItemTypes();
     }
 
-    @RequestMapping("/equipmentItemType/{id}")
-    public EquipmentItemType getEquipmentItemType(@PathVariable long id) {
+    @GetMapping("/equipmentItemType/{id}")
+    public EquipmentItemType getEquipmentItemType(@PathVariable String id) {
         return equipmentItemTypeService.getEquipmentItemType(id);
     }
 }

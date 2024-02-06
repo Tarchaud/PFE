@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "Test d'initialisation de db avec juste actions.json pour l'instant"
+echo "Initialisation de la base de données avec tous les fichiers JSON du dossier"
 
-filename="/docker-entrypoint-initdb.d/actions.json"
-collection=$(basename "$filename" .json)
-mongoimport --db PFE_Wakfu --type json --collection "$collection" --file "$filename" --jsonArray
+for filename in /docker-entrypoint-initdb.d/*.json; do
+    collection=$(basename "$filename" .json)
+    echo "Importation du fichier $filename dans la collection $collection"
+    mongoimport --db PFE_Wakfu --type json --collection "$collection" --file "$filename" --jsonArray
+done

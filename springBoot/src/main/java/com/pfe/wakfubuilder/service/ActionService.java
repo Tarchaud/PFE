@@ -21,7 +21,10 @@ public class ActionService {
         return actionRepository.findAll();
     }
 
-    public Action getAction(long id) {
+    public Action getAction(String id) {
+        if (id == null) {
+            return null;
+        }
         Optional<Action> optionalAction = actionRepository.findById(id);
         return optionalAction.orElse(null);
     }

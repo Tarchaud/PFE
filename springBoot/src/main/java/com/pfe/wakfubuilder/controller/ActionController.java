@@ -14,13 +14,13 @@ public class ActionController {
     @Autowired
     private ActionService actionService;
 
-    @RequestMapping("/actions")
+    @GetMapping("/actions")
     public List<Action> getActions() {
         return actionService.getActions();
     }
 
-    @RequestMapping("/action/{id}")
-    public Action getAction(@PathVariable long id) {
+    @GetMapping("/action/{id}")
+    public Action getAction(@PathVariable String id) {
         return actionService.getAction(id);
     }
 }

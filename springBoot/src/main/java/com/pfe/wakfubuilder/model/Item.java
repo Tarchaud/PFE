@@ -72,7 +72,7 @@ public class Item {
 
     @Id
     @JsonProperty("id")
-    private long id;
+    private String id;
     private Definition definition;
     private InfoTranslate title;
     private InfoTranslate description;
@@ -88,7 +88,7 @@ public class Item {
     }
 
     /* Getters */
-    public long getId() {
+    public String getId() {
         return id;
     }
 

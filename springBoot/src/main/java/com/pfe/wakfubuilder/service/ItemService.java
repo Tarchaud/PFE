@@ -21,7 +21,10 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Item getItem(long id) {
+    public Item getItem(String id) {
+        if (id == null) {
+            return null;
+        }
         Optional<Item> optionalItem = itemRepository.findById(id);
         return optionalItem.orElse(null);
     }

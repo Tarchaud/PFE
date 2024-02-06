@@ -9,13 +9,19 @@ class ActionDefinition {
     public int id;
     public String effect;
 }
+class ActionDescription {
+    public String fr;
+    public String en;
+    public String es;
+    public String pt;
+}
 
-@Document(collection = "action")
+@Document(collection = "actions")
 public class Action {
 
     @Id
     @JsonProperty("id")
-    private long id;
+    private String id;
     private ActionDefinition definition;
     private InfoTranslate description;
 
@@ -28,9 +34,8 @@ public class Action {
         this.description = description;
     }
     
-    
     /* Getters */
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -51,8 +56,4 @@ public class Action {
     public void setDescription(InfoTranslate description) {
         this.description = description;
     }
-
-
-    
-    
 }

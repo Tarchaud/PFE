@@ -14,12 +14,12 @@ public class BuildController {
     @Autowired
     private BuildService buildService;
 
-    @RequestMapping("/builds")
+    @GetMapping("/builds")
     public List<Build> getBuilds() {
         return buildService.getBuilds();
     }
 
-    @RequestMapping("/build/{id}")
+    @GetMapping("/build/{id}")
     public Build getBuild(@PathVariable long id) {
         return buildService.getBuild(id);
     }
