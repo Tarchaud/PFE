@@ -12,9 +12,10 @@ public class Build {
     private String name;
     private int level;
     private Cost cost;
+    private Item[] items;
 
     public Build () {
-
+        this.items = new Item[15];
     }
     public Build(long id, String name, int level, Cost cost) {
         super();
@@ -22,6 +23,7 @@ public class Build {
         this.name = name;
         this.level = level;
         this.cost = cost;
+        this.items = new Item[15];
     }
 
     public long getId() {
@@ -54,5 +56,13 @@ public class Build {
 
     public void setCost(Cost cost) {
         this.cost = cost;
+    }
+
+    public Item[] getItems() {
+        return items;
+    }
+
+    public void setItems(Item[] items) {
+        this.items = items;
     }
 }
