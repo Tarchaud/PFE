@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef } from '@angular/core';
-import Waktrinser from '@methodwakfu-public/waktrinser';
+import { Component, ElementRef } from '@angular/core';
 import { ActionService } from 'src/app/shared/services/action.service';
 import { EquipementItemTypeService } from 'src/app/shared/services/equipement-item-type.service';
 import { ItemService } from 'src/app/shared/services/item.service';
@@ -41,6 +40,9 @@ export class WikiItemsComponent {
     this.selectedType = type;
     this.toShow = 20;
     this.items.getAllItemsByType(type);
+    //Permet de remonter en haut de la liste
+    const element = this.elementRef.nativeElement.querySelector('.liste_items');
+    element.scrollTop = 0;
   }
 
   //Permet de faire du lazy loading
