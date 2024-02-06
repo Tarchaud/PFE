@@ -7,6 +7,7 @@ import { WikiItemsComponent } from './pages/wiki-items/wiki-items.component';
 import { BuildsComponent } from './pages/builds/builds.component';
 import { CreateBuildComponent } from './pages/create-build/create-build.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RgpdComponent } from './pages/rgpd/rgpd.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'liste-builds', component: BuildsComponent},
   { path: 'create-build', component: CreateBuildComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'mentions', component: RgpdComponent},
+  { path: 'rgpd', component: RgpdComponent},
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
   { path: '**', redirectTo: '/accueil' }
 ];
