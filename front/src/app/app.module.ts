@@ -17,6 +17,7 @@ import { RgpdComponent } from './pages/rgpd/rgpd.component';
 import { BuildsComponent } from './pages/builds/builds.component';
 import { CreateBuildComponent } from './pages/create-build/create-build.component';
 import { LoginComponent } from './pages/login/login.component';
+import { BuildComponent } from './pages/build/build.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginComponent } from './pages/login/login.component';
     RgpdComponent,
     BuildsComponent,
     CreateBuildComponent,
-    LoginComponent
+    LoginComponent,
+    BuildComponent
   ],
   imports: [
     SharedModule,
