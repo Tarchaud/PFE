@@ -8,9 +8,8 @@ Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base d
 docker-compose up --build
 
 # To do
-- Faire des routes spéciales pour les Items en fonction des equipmentItemTypes (plusieurs id en paramètres)
-- Suppr la branche API
 - modifier la class Effect {
     public DefinitionEffect definition;
     public InfoTranslate description;
 } à cause des montures
+- connexion / inscription 

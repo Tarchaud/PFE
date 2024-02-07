@@ -28,4 +28,8 @@ public class ItemService {
         Optional<Item> optionalItem = itemRepository.findById(id);
         return optionalItem.orElse(null);
     }
+
+    public List<Item> getItemsByEquipmentItemTypeIds(List<Integer> ids) {
+        return itemRepository.findByEquipmentItemTypeIds(ids);
+    }
 }

@@ -23,4 +23,9 @@ public class ItemController {
     public Item getItem(@PathVariable String id) {
         return itemService.getItem(id);
     }
+
+    @GetMapping("/items/equipmentItemType")
+    public List<Item> getItemsByEquipmentItemTypeIds(@RequestParam List<Integer> ids) {
+        return itemService.getItemsByEquipmentItemTypeIds(ids);
+    }
 }
