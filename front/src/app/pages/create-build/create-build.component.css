@@ -1,0 +1,36 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items:center;
+  padding: 10px 20px;
+}
+
+.box_form {
+    width: 500px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items:center;
+    padding: 10px 20px;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items:center;
+  padding: 10px 20px;
+
+}
+
+.box_effect {
+  width: 500px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 10px 20px;
+}

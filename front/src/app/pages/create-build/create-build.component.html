@@ -1,1 +1,28 @@
-<p>create-build works!</p>
+<div class="container">
+
+  <div class="box_form">
+    <form (submit)="createBuild()">
+      <button type="submit">Crée mon build</button>
+      <fieldset>
+        <label>Nom  du Build : </label>
+        <input [(ngModel)]="nameBuild" name="nameBuild" required>
+      </fieldset>
+
+      <fieldset>
+        <label>Level du Build : </label>
+        <input type="number" maxlength="230" minlength="1" name="levelBuild" [(ngModel)]="levelBuild" required>
+      </fieldset>
+
+      <fieldset>
+        <label>Liste des effets du build : </label>
+        <div class="box_effect">
+          <div *ngFor="let a of action.arr_actions">
+            <input type="checkbox" [value]="a.definition.id" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.id]">
+            {{ a.definition.effect }} ({{ a.definition.id }})
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+</div>

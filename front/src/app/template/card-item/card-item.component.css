@@ -17,6 +17,8 @@
 
 .card_img {
   background-color: #adaaaa;
+  width: 64px;
+  height: 64px;
   margin-bottom: 20px;
 }
 
