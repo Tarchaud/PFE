@@ -1,7 +1,7 @@
 [
   {
     "definition": {
-      "id": 1,
+      "idActionDefinition": 1,
       "effect": "Dommage : Neutre"
     },
     "description": {
@@ -13,7 +13,7 @@
   },
   {
     "definition": {
-      "id": 20,
+      "idActionDefinition": 20,
       "effect": "Boost : Point de vie (PV)"
     },
     "description": {
@@ -25,7 +25,7 @@
   },
   {
     "definition": {
-      "id": 21,
+      "idActionDefinition": 21,
       "effect": "Deboost : Point de vie (PV)"
     },
     "description": {
@@ -37,7 +37,7 @@
   },
   {
     "definition": {
-      "id": 24,
+      "idActionDefinition": 24,
       "effect": "Soin : Neutre (Vol de vie)"
     },
     "description": {
@@ -49,7 +49,7 @@
   },
   {
     "definition": {
-      "id": 26,
+      "idActionDefinition": 26,
       "effect": "Gain : Maîtrise Soin"
     },
     "description": {
@@ -61,7 +61,7 @@
   },
   {
     "definition": {
-      "id": 31,
+      "idActionDefinition": 31,
       "effect": "Boost : PA"
     },
     "description": {
@@ -73,7 +73,7 @@
   },
   {
     "definition": {
-      "id": 39,
+      "idActionDefinition": 39,
       "effect": "Gain : charac passée en paramètre"
     },
     "description": {
@@ -85,7 +85,7 @@
   },
   {
     "definition": {
-      "id": 40,
+      "idActionDefinition": 40,
       "effect": "Perte : charac passée en paramètre"
     },
     "description": {
@@ -97,7 +97,7 @@
   },
   {
     "definition": {
-      "id": 41,
+      "idActionDefinition": 41,
       "effect": "Boost : PM"
     },
     "description": {
@@ -109,7 +109,7 @@
   },
   {
     "definition": {
-      "id": 42,
+      "idActionDefinition": 42,
       "effect": "OLD - Deboost : PM"
     },
     "description": {
@@ -121,7 +121,7 @@
   },
   {
     "definition": {
-      "id": 56,
+      "idActionDefinition": 56,
       "effect": "Deboost : PA"
     },
     "description": {
@@ -133,7 +133,7 @@
   },
   {
     "definition": {
-      "id": 57,
+      "idActionDefinition": 57,
       "effect": "Deboost : PM"
     },
     "description": {
@@ -145,7 +145,7 @@
   },
   {
     "definition": {
-      "id": 71,
+      "idActionDefinition": 71,
       "effect": "Gain : Résistance Dos"
     },
     "description": {
@@ -157,7 +157,7 @@
   },
   {
     "definition": {
-      "id": 80,
+      "idActionDefinition": 80,
       "effect": "Gain : Résistance Élémentaire"
     },
     "description": {
@@ -169,7 +169,7 @@
   },
   {
     "definition": {
-      "id": 82,
+      "idActionDefinition": 82,
       "effect": "Gain : Résistance Feu"
     },
     "description": {
@@ -181,7 +181,7 @@
   },
   {
     "definition": {
-      "id": 83,
+      "idActionDefinition": 83,
       "effect": "Gain : Résistance Eau"
     },
     "description": {
@@ -193,7 +193,7 @@
   },
   {
     "definition": {
-      "id": 84,
+      "idActionDefinition": 84,
       "effect": "Gain : Résistance Terre"
     },
     "description": {
@@ -205,7 +205,7 @@
   },
   {
     "definition": {
-      "id": 85,
+      "idActionDefinition": 85,
       "effect": "Gain : Résistance Air"
     },
     "description": {
@@ -217,7 +217,7 @@
   },
   {
     "definition": {
-      "id": 90,
+      "idActionDefinition": 90,
       "effect": "Perte : Résistance Élémentaire"
     },
     "description": {
@@ -229,7 +229,7 @@
   },
   {
     "definition": {
-      "id": 96,
+      "idActionDefinition": 96,
       "effect": "Perte : Résistance Terre (sans cap)"
     },
     "description": {
@@ -241,7 +241,7 @@
   },
   {
     "definition": {
-      "id": 97,
+      "idActionDefinition": 97,
       "effect": "Perte : Résistance Feu (sans cap)"
     },
     "description": {
@@ -253,7 +253,7 @@
   },
   {
     "definition": {
-      "id": 98,
+      "idActionDefinition": 98,
       "effect": "Perte : Résistance Eau (sans cap)"
     },
     "description": {
@@ -265,7 +265,7 @@
   },
   {
     "definition": {
-      "id": 100,
+      "idActionDefinition": 100,
       "effect": "Perte : Résistance Élémentaire (sans cap)"
     },
     "description": {
@@ -277,7 +277,7 @@
   },
   {
     "definition": {
-      "id": 120,
+      "idActionDefinition": 120,
       "effect": "Gain : Maîtrise Élémentaire"
     },
     "description": {
@@ -289,7 +289,7 @@
   },
   {
     "definition": {
-      "id": 122,
+      "idActionDefinition": 122,
       "effect": "Gain : Maîtrise Feu"
     },
     "description": {
@@ -301,7 +301,7 @@
   },
   {
     "definition": {
-      "id": 123,
+      "idActionDefinition": 123,
       "effect": "Gain : Maîtrise Terre"
     },
     "description": {
@@ -313,7 +313,7 @@
   },
   {
     "definition": {
-      "id": 124,
+      "idActionDefinition": 124,
       "effect": "Gain : Maîtrise Eau"
     },
     "description": {
@@ -325,7 +325,7 @@
   },
   {
     "definition": {
-      "id": 125,
+      "idActionDefinition": 125,
       "effect": "Gain : Maîtrise Air"
     },
     "description": {
@@ -337,7 +337,7 @@
   },
   {
     "definition": {
-      "id": 130,
+      "idActionDefinition": 130,
       "effect": "Perte : Maîtrise Élémentaire"
     },
     "description": {
@@ -349,7 +349,7 @@
   },
   {
     "definition": {
-      "id": 132,
+      "idActionDefinition": 132,
       "effect": "Perte : Maîtrise Feu"
     },
     "description": {
@@ -361,7 +361,7 @@
   },
   {
     "definition": {
-      "id": 149,
+      "idActionDefinition": 149,
       "effect": "Gain : Maîtrise Critique"
     },
     "description": {
@@ -373,7 +373,7 @@
   },
   {
     "definition": {
-      "id": 150,
+      "idActionDefinition": 150,
       "effect": "Gain : Coup Critique (%)"
     },
     "description": {
@@ -385,7 +385,7 @@
   },
   {
     "definition": {
-      "id": 160,
+      "idActionDefinition": 160,
       "effect": "Gain : Portée"
     },
     "description": {
@@ -397,7 +397,7 @@
   },
   {
     "definition": {
-      "id": 161,
+      "idActionDefinition": 161,
       "effect": "Perte : Portée"
     },
     "description": {
@@ -409,7 +409,7 @@
   },
   {
     "definition": {
-      "id": 162,
+      "idActionDefinition": 162,
       "effect": "Gain : Prospection"
     },
     "description": {
@@ -421,7 +421,7 @@
   },
   {
     "definition": {
-      "id": 166,
+      "idActionDefinition": 166,
       "effect": "Gain : Sagesse"
     },
     "description": {
@@ -433,7 +433,7 @@
   },
   {
     "definition": {
-      "id": 168,
+      "idActionDefinition": 168,
       "effect": "Perte : Coup Critique (%)"
     },
     "description": {
@@ -445,7 +445,7 @@
   },
   {
     "definition": {
-      "id": 171,
+      "idActionDefinition": 171,
       "effect": "Gain : Initiative"
     },
     "description": {
@@ -457,7 +457,7 @@
   },
   {
     "definition": {
-      "id": 172,
+      "idActionDefinition": 172,
       "effect": "Perte : Initiative"
     },
     "description": {
@@ -469,7 +469,7 @@
   },
   {
     "definition": {
-      "id": 173,
+      "idActionDefinition": 173,
       "effect": "Gain : Tacle"
     },
     "description": {
@@ -481,7 +481,7 @@
   },
   {
     "definition": {
-      "id": 174,
+      "idActionDefinition": 174,
       "effect": "Perte : Tacle"
     },
     "description": {
@@ -493,7 +493,7 @@
   },
   {
     "definition": {
-      "id": 175,
+      "idActionDefinition": 175,
       "effect": "Gain : Esquive"
     },
     "description": {
@@ -505,7 +505,7 @@
   },
   {
     "definition": {
-      "id": 176,
+      "idActionDefinition": 176,
       "effect": "Perte : Esquive"
     },
     "description": {
@@ -517,7 +517,7 @@
   },
   {
     "definition": {
-      "id": 177,
+      "idActionDefinition": 177,
       "effect": "Gain : Volonté"
     },
     "description": {
@@ -529,7 +529,7 @@
   },
   {
     "definition": {
-      "id": 180,
+      "idActionDefinition": 180,
       "effect": "Gain : Maîtrise Dos"
     },
     "description": {
@@ -541,7 +541,7 @@
   },
   {
     "definition": {
-      "id": 181,
+      "idActionDefinition": 181,
       "effect": "Perte : Maîtrise Dos"
     },
     "description": {
@@ -553,7 +553,7 @@
   },
   {
     "definition": {
-      "id": 184,
+      "idActionDefinition": 184,
       "effect": "Gain : Contrôle"
     },
     "description": {
@@ -565,7 +565,7 @@
   },
   {
     "definition": {
-      "id": 191,
+      "idActionDefinition": 191,
       "effect": "Boost : PW"
     },
     "description": {
@@ -577,7 +577,7 @@
   },
   {
     "definition": {
-      "id": 192,
+      "idActionDefinition": 192,
       "effect": "Deboost : PW"
     },
     "description": {
@@ -589,7 +589,7 @@
   },
   {
     "definition": {
-      "id": 194,
+      "idActionDefinition": 194,
       "effect": "Perte : PW"
     },
     "description": {
@@ -601,7 +601,7 @@
   },
   {
     "definition": {
-      "id": 304,
+      "idActionDefinition": 304,
       "effect": "State : Applique un état"
     },
     "description": {
@@ -613,19 +613,19 @@
   },
   {
     "definition": {
-      "id": 330,
+      "idActionDefinition": 330,
       "effect": "REG : execute le groupe d'effets"
     }
   },
   {
     "definition": {
-      "id": 400,
+      "idActionDefinition": 400,
       "effect": "NullEffect : Effet Vide"
     }
   },
   {
     "definition": {
-      "id": 832,
+      "idActionDefinition": 832,
       "effect": "Spell : Gain de niveaux de sorts dans une branche"
     },
     "description": {
@@ -637,19 +637,19 @@
   },
   {
     "definition": {
-      "id": 843,
+      "idActionDefinition": 843,
       "effect": "Area : Retire une zone en sélectionnant la zone comme cible"
     }
   },
   {
     "definition": {
-      "id": 865,
+      "idActionDefinition": 865,
       "effect": "REG : valeur du second effet fonction de celle du premier (2 effets enfants max)"
     }
   },
   {
     "definition": {
-      "id": 875,
+      "idActionDefinition": 875,
       "effect": "Gain : Parade"
     },
     "description": {
@@ -661,7 +661,7 @@
   },
   {
     "definition": {
-      "id": 876,
+      "idActionDefinition": 876,
       "effect": "Perte : Parade"
     },
     "description": {
@@ -673,7 +673,7 @@
   },
   {
     "definition": {
-      "id": 979,
+      "idActionDefinition": 979,
       "effect": "Spell : Gain de niveau de sort tous éléments (sauf support)"
     },
     "description": {
@@ -685,7 +685,7 @@
   },
   {
     "definition": {
-      "id": 988,
+      "idActionDefinition": 988,
       "effect": "Gain : Résistance Critique"
     },
     "description": {
@@ -697,13 +697,13 @@
   },
   {
     "definition": {
-      "id": 1020,
+      "idActionDefinition": 1020,
       "effect": "REG : niveau des enfants fonction de la valeur de l'effet déclencheur"
     }
   },
   {
     "definition": {
-      "id": 1052,
+      "idActionDefinition": 1052,
       "effect": "Gain : Maîtrise Mêlée"
     },
     "description": {
@@ -715,7 +715,7 @@
   },
   {
     "definition": {
-      "id": 1053,
+      "idActionDefinition": 1053,
       "effect": "Gain : Maîtrise Distance"
     },
     "description": {
@@ -727,7 +727,7 @@
   },
   {
     "definition": {
-      "id": 1055,
+      "idActionDefinition": 1055,
       "effect": "Gain : Maîtrise Berserk"
     },
     "description": {
@@ -739,7 +739,7 @@
   },
   {
     "definition": {
-      "id": 1056,
+      "idActionDefinition": 1056,
       "effect": "Perte : Maîtrise Critique"
     },
     "description": {
@@ -751,7 +751,7 @@
   },
   {
     "definition": {
-      "id": 1059,
+      "idActionDefinition": 1059,
       "effect": "Perte : Maîtrise Mêlée"
     },
     "description": {
@@ -763,7 +763,7 @@
   },
   {
     "definition": {
-      "id": 1060,
+      "idActionDefinition": 1060,
       "effect": "Perte : Maîtrise Distance"
     },
     "description": {
@@ -775,7 +775,7 @@
   },
   {
     "definition": {
-      "id": 1061,
+      "idActionDefinition": 1061,
       "effect": "Perte : Maîtrise Berserk"
     },
     "description": {
@@ -787,7 +787,7 @@
   },
   {
     "definition": {
-      "id": 1062,
+      "idActionDefinition": 1062,
       "effect": "Perte : Résistance Critique"
     },
     "description": {
@@ -799,7 +799,7 @@
   },
   {
     "definition": {
-      "id": 1063,
+      "idActionDefinition": 1063,
       "effect": "Perte : Résistance Dos"
     },
     "description": {
@@ -811,7 +811,7 @@
   },
   {
     "definition": {
-      "id": 1068,
+      "idActionDefinition": 1068,
       "effect": "Gain : Maîtrise Élémentaire dans un nombre variable d'éléments"
     },
     "description": {
@@ -823,7 +823,7 @@
   },
   {
     "definition": {
-      "id": 1069,
+      "idActionDefinition": 1069,
       "effect": "Gain : Résistance Élémentaire dans un nombre variable d'éléments"
     },
     "description": {
@@ -835,7 +835,7 @@
   },
   {
     "definition": {
-      "id": 1083,
+      "idActionDefinition": 1083,
       "effect": "Dommage : Lumière"
     },
     "description": {
@@ -847,7 +847,7 @@
   },
   {
     "definition": {
-      "id": 1084,
+      "idActionDefinition": 1084,
       "effect": "Soin : Lumière"
     },
     "description": {
@@ -859,7 +859,7 @@
   },
   {
     "definition": {
-      "id": 2001,
+      "idActionDefinition": 2001,
       "effect": "Job : Modifie la quantité d'objets récoltée"
     },
     "description": {

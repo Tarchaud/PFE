@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 class ActionDefinition {
-    public int id;
+    public int idActionDefinition;
     public String effect;
 }
 class ActionDescription {

@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 class EquipmentItemTypeDefinition {
-    public int id;
+    public int idEITDefinition;
     public String parentId;
     public String[] equipmentPositions;
     public String[] equipmentDisabledPositions;
@@ -54,7 +54,4 @@ public class EquipmentItemType {
     public void setTitle(InfoTranslate title) {
         this.title = title;
     }
-
-    
-
 }
