@@ -15,6 +15,7 @@ class DefinitionEffect {
 
 class Effect {
     public DefinitionEffect definition;
+    public InfoTranslate description;
 }
 
 class EquipEffect {
