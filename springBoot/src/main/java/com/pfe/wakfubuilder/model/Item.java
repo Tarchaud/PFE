@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 class DefinitionEffect {
-    public int id;
+    public int idEffectDef;
     public int actionId;
     public int areaShape;
     public int[] areaSize;
@@ -52,7 +52,7 @@ class GraphicParameters {
 }
 
 class ItemDef {
-    public int id;
+    public int idItemDef;
     public int level;
     public BaseParameters baseParameters;
     public UseParameters useParameters;
@@ -64,7 +64,7 @@ class Definition {
     public ItemDef item;
     public UseEffect[] useEffects;
     public UseEffect[] useCriticalEffects;
-    public EquipEffect[] equipeEffects;
+    public EquipEffect[] equipEffects;
 }
 
 @Document(collection = "items")

@@ -1,7 +1,7 @@
 [
   {
     "definition": {
-      "id": 101,
+      "idEITDefinition": 101,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -21,7 +21,7 @@
   },
   {
     "definition": {
-      "id": 103,
+      "idEITDefinition": 103,
       "parentId": 118,
       "equipmentPositions": [
         "LEFT_HAND",
@@ -40,7 +40,7 @@
   },
   {
     "definition": {
-      "id": 108,
+      "idEITDefinition": 108,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -58,7 +58,7 @@
   },
   {
     "definition": {
-      "id": 110,
+      "idEITDefinition": 110,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -76,7 +76,7 @@
   },
   {
     "definition": {
-      "id": 111,
+      "idEITDefinition": 111,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -96,7 +96,7 @@
   },
   {
     "definition": {
-      "id": 112,
+      "idEITDefinition": 112,
       "parentId": 520,
       "equipmentPositions": [
         "SECOND_WEAPON"
@@ -114,7 +114,7 @@
   },
   {
     "definition": {
-      "id": 113,
+      "idEITDefinition": 113,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -132,7 +132,7 @@
   },
   {
     "definition": {
-      "id": 114,
+      "idEITDefinition": 114,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -152,7 +152,7 @@
   },
   {
     "definition": {
-      "id": 115,
+      "idEITDefinition": 115,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -170,7 +170,7 @@
   },
   {
     "definition": {
-      "id": 117,
+      "idEITDefinition": 117,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -190,7 +190,7 @@
   },
   {
     "definition": {
-      "id": 119,
+      "idEITDefinition": 119,
       "parentId": 118,
       "equipmentPositions": [
         "LEGS"
@@ -208,7 +208,7 @@
   },
   {
     "definition": {
-      "id": 120,
+      "idEITDefinition": 120,
       "parentId": 118,
       "equipmentPositions": [
         "NECK"
@@ -226,7 +226,7 @@
   },
   {
     "definition": {
-      "id": 132,
+      "idEITDefinition": 132,
       "parentId": 118,
       "equipmentPositions": [
         "BACK"
@@ -244,7 +244,7 @@
   },
   {
     "definition": {
-      "id": 133,
+      "idEITDefinition": 133,
       "parentId": 118,
       "equipmentPositions": [
         "BELT"
@@ -262,7 +262,7 @@
   },
   {
     "definition": {
-      "id": 134,
+      "idEITDefinition": 134,
       "parentId": 118,
       "equipmentPositions": [
         "HEAD"
@@ -280,7 +280,7 @@
   },
   {
     "definition": {
-      "id": 136,
+      "idEITDefinition": 136,
       "parentId": 118,
       "equipmentPositions": [
         "CHEST"
@@ -298,7 +298,7 @@
   },
   {
     "definition": {
-      "id": 138,
+      "idEITDefinition": 138,
       "parentId": 118,
       "equipmentPositions": [
         "SHOULDERS"
@@ -316,7 +316,7 @@
   },
   {
     "definition": {
-      "id": 189,
+      "idEITDefinition": 189,
       "parentId": 520,
       "equipmentPositions": [
         "SECOND_WEAPON"
@@ -334,7 +334,7 @@
   },
   {
     "definition": {
-      "id": 219,
+      "idEITDefinition": 219,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -352,7 +352,7 @@
   },
   {
     "definition": {
-      "id": 223,
+      "idEITDefinition": 223,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -372,7 +372,7 @@
   },
   {
     "definition": {
-      "id": 253,
+      "idEITDefinition": 253,
       "parentId": 519,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -392,7 +392,7 @@
   },
   {
     "definition": {
-      "id": 254,
+      "idEITDefinition": 254,
       "parentId": 518,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -410,7 +410,7 @@
   },
   {
     "definition": {
-      "id": 480,
+      "idEITDefinition": 480,
       "parentId": 521,
       "equipmentPositions": [
         "ACCESSORY"
@@ -428,7 +428,7 @@
   },
   {
     "definition": {
-      "id": 518,
+      "idEITDefinition": 518,
       "parentId": 100,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -446,7 +446,7 @@
   },
   {
     "definition": {
-      "id": 519,
+      "idEITDefinition": 519,
       "parentId": 100,
       "equipmentPositions": [
         "FIRST_WEAPON"
@@ -466,7 +466,7 @@
   },
   {
     "definition": {
-      "id": 520,
+      "idEITDefinition": 520,
       "parentId": 100,
       "equipmentPositions": [
         "SECOND_WEAPON"
@@ -484,7 +484,7 @@
   },
   {
     "definition": {
-      "id": 537,
+      "idEITDefinition": 537,
       "parentId": 521,
       "equipmentPositions": [
         "ACCESSORY"
@@ -502,7 +502,7 @@
   },
   {
     "definition": {
-      "id": 582,
+      "idEITDefinition": 582,
       "parentId": 420,
       "equipmentPositions": [
         "PET"
@@ -520,7 +520,7 @@
   },
   {
     "definition": {
-      "id": 611,
+      "idEITDefinition": 611,
       "parentId": 420,
       "equipmentPositions": [],
       "equipmentDisabledPositions": [],
@@ -536,7 +536,7 @@
   },
   {
     "definition": {
-      "id": 646,
+      "idEITDefinition": 646,
       "parentId": 521,
       "equipmentPositions": [
         "ACCESSORY"
@@ -554,7 +554,7 @@
   },
   {
     "definition": {
-      "id": 647,
+      "idEITDefinition": 647,
       "parentId": 525,
       "equipmentPositions": [
         "COSTUME"
