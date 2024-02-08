@@ -29,4 +29,11 @@ public class EquipmentItemTypeService {
         Optional<EquipmentItemType> optionalEquipmentItemType = equipmentItemTypeRepository.findById(id);
         return optionalEquipmentItemType.orElse(null);
     }
+
+    public String[] getEquipmentPositionByItemTypeId(Integer itemTypeId) {
+        if (itemTypeId == null) {
+            return null;
+        }
+        return equipmentItemTypeRepository.findByItemTypeId(itemTypeId).getDefinition().equipmentPositions;
+    }
 }

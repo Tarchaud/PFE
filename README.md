@@ -8,4 +8,7 @@ Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base d
 docker-compose up --build
 
 # To do
-- connexion / inscription 
+- génération de build en cours
+- les int en float
+- parentId de equipmentItemType en string
+- connexion / inscription

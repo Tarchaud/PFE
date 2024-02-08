@@ -1,5 +1,7 @@
 package com.pfe.wakfubuilder.model;
 
+import java.util.List;
+
 public class Build {
 
     public enum Cost {
@@ -13,6 +15,7 @@ public class Build {
     private int level;
     private Cost cost;
     private Item[] items;
+    private List<Integer> effects;
 
     public Build () {
         this.items = new Item[15];
@@ -64,5 +67,13 @@ public class Build {
 
     public void setItems(Item[] items) {
         this.items = items;
+    }
+
+    public List<Integer> getEffects() {
+        return effects;
+    }
+
+    public void setEffects(List<Integer> effects) {
+        this.effects = effects;
     }
 }
