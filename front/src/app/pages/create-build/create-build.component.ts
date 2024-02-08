@@ -6,6 +6,8 @@ import { Block } from 'notiflix/build/notiflix-block-aio';
 //Services
 import { ActionService } from 'src/app/shared/services/action.service';
 import { BuildService } from 'src/app/shared/services/build.service';
+import { BuildI } from 'src/app/shared/models/build-i';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,9 +20,10 @@ export class CreateBuildComponent {
   levelBuild : number = 100;
   effectBuild : number[] = [];
   selectedEffect: { [key: number]: boolean } = {};
+  costBuild : string = "low";
 
 
-  constructor(public action : ActionService, private buildService : BuildService) { }
+  constructor(public action : ActionService, private buildService : BuildService, private route : Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -50,19 +53,29 @@ export class CreateBuildComponent {
     let build = {
       name : this.nameBuild,
       level : this.levelBuild,
+      cost : this.costBuild,
       effect : this.effectBuild
     }
-    console.log("Name : " + this.nameBuild);
-    console.log("Level : " + this.levelBuild);
-    console.table(this.effectBuild);
+    //TODO : clear
+    console.log(build);
+
 
     this.initForm();
-    //TODO : comment
-    // this.buildService.createBuild(build);
-    Block.remove('.container');
-
-    console.log("Build created");
-
+    // this.buildService.createBuild(build).subscribe({
+    //   next : (data : BuildI) => {
+    //     console.log(data);
+    //     this.route.navigate(['/build', data.id]);
+    //   },
+    //   error : (err) => {
+    //     console.log(err.message);
+    //     Notify.failure(err.message);
+    //   },
+    //   complete : () => {
+    //       Block.remove('.container');
+    //       console.log('Build created');
+    //     }
+    //   }
+    // );
   }
 
 }

@@ -9,8 +9,17 @@
       </fieldset>
 
       <fieldset>
-        <label>Level du Build : </label>
+        <label>Level du Build (1 - 230): </label>
         <input type="number" maxlength="230" minlength="1" name="levelBuild" [(ngModel)]="levelBuild" required>
+      </fieldset>
+
+      <fieldset>
+        <label>Coût du Build: </label>
+        <select name="classBuild" [(ngModel)]="costBuild" required>
+          <option value="low">Bas</option>
+          <option value="medium">moyen</option>
+          <option value="high">Elevé</option>
+        </select>
       </fieldset>
 
       <fieldset>

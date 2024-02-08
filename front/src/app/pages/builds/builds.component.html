@@ -1,1 +1,41 @@
-<p>builds works!</p>
+<div class="container">
+
+  <div class="div_filtre">
+
+    <div class="level_build">
+      <fieldset>
+        <legend>Level</legend>
+        <mat-slider min="0" max="230" step="1" showTickMarks discrete>
+          <input  matSliderStartThumb [(ngModel)]="levelFilter[0]" name="sliderStart">
+          <input  matSliderEndThumb [(ngModel)]="levelFilter[1]" name="sliderEnd">
+        </mat-slider>
+        <div>
+          level minimum: {{ levelFilter[0] }}
+        </div>
+        <div>
+          level maximum: {{ levelFilter[1] }}
+        </div>
+      </fieldset>
+    </div>
+    <div class="name_build">
+      <fieldset>
+        <legend>Nom</legend>
+        <input type="text" [(ngModel)]="nameBuild"  placeholder="Recherche un item">
+      </fieldset>
+    </div>
+
+
+
+  </div>
+
+
+  <div class="div_liste">
+    <div class="liste_builds" *ngIf="builds.arr_builds.length > 0" (scroll)="onScroll($event)">
+      <div class="card_build">
+        <div class="card_build_title">
+          <h2>name</h2>
+      </div>
+      <!-- <app-card-item *ngFor="let i of (builds.arr_builds | item:nameBuild | level:levelFilter[0]:levelFilter[1]) | slice:0:toShow" [item]="i"></app-card-item> -->
+    </div>
+  </div>
+</div>

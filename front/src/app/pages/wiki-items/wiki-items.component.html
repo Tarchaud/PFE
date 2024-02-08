@@ -40,7 +40,7 @@
 
   <div class="div_liste">
     <div class="liste_items" *ngIf="items.arr_items.length > 0" (scroll)="onScroll($event)">
-      <app-card-item *ngFor="let i of (items.arr_items | item:nameItem | level:levelFilter[0]:levelFilter[1]) | slice:0:toShow" [item]="i"></app-card-item>
+      <app-card-item *ngFor="let i of (items.arr_items | name:nameItem | level:levelFilter[0]:levelFilter[1]) | slice:0:toShow" [item]="i"></app-card-item>
     </div>
   </div>
 </div>

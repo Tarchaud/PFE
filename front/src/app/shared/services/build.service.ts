@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BuildI } from '../models/build-i';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuildService {
   public arr_builds : BuildI[] = [];
+
 
   constructor(private http : HttpClient) { }
 
@@ -25,20 +27,16 @@ export class BuildService {
     });
   }
 
+  //TODO : link to the backend
+  getBuildById(id : string) : Observable<BuildI> {
+    return this.http.get<BuildI>('assets/data/builds.json');
+  }
+
+
 
   //TODO : link to the backend
-  createBuild(build : any) {
+  createBuild(build : any) : Observable<BuildI>{
     console.log("Build created");
-    return this.http.post<any>('assets/data/builds.json', build).subscribe({
-      next : (data : BuildI) => {
-        console.log(data);
-      },
-      error : (err) => {
-        console.log(err);
-      },
-      complete : () => {
-        console.log('Create build completed');
-      }
-    });
+    return this.http.post<BuildI>('assets/data/builds.json', build);
   }
 }

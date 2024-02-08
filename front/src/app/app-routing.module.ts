@@ -8,11 +8,13 @@ import { BuildsComponent } from './pages/builds/builds.component';
 import { CreateBuildComponent } from './pages/create-build/create-build.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RgpdComponent } from './pages/rgpd/rgpd.component';
+import { BuildComponent } from './pages/build/build.component';
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'wiki-items', component: WikiItemsComponent },
   { path: 'liste-builds', component: BuildsComponent},
+  { path: 'build/:buildId', component: BuildComponent},
   { path: 'creation-build', component: CreateBuildComponent},
   { path: 'login', component: LoginComponent},
   { path: 'mentions', component: RgpdComponent},
