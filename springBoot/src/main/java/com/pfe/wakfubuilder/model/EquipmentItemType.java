@@ -15,13 +15,17 @@ public class EquipmentItemType {
         public String[] equipmentDisabledPositions;
         public boolean isRecyclable;
         public boolean isVisibleInAnimation;
+
+        public String[] getEquipmentPositions() {
+            return equipmentPositions;
+        }
     }
+
     @Id
     @JsonProperty("id")
     private String id;
     private EquipmentItemTypeDefinition definition;
     private InfoTranslate title;
-
 
     /* Constructors */
     public EquipmentItemType() {}

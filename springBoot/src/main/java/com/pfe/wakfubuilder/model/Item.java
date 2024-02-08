@@ -25,15 +25,6 @@ class UseEffect {
     public Effect effect;
 }
 
-class BaseParameters {
-    public int itemTypeId;
-    public int itemSetId;
-    public int rarity;
-    public int bindType;
-    public int minimunShardSlot;
-    public int maximumShardSlot;
-}
-
 class UseParameters {
     public int useCostAP;
     public int useCostMP;
@@ -52,24 +43,37 @@ class GraphicParameters {
     public int femaleGfxId;
 }
 
-class ItemDef {
-    public int idItemDef;
-    public int level;
-    public BaseParameters baseParameters;
-    public UseParameters useParameters;
-    public GraphicParameters graphicParameters;
-    public int[] properties;
-}
-
-class Definition {
-    public ItemDef item;
-    public UseEffect[] useEffects;
-    public UseEffect[] useCriticalEffects;
-    public EquipEffect[] equipEffects;
-}
-
 @Document(collection = "items")
 public class Item {
+
+    public static class BaseParameters {
+        public int itemTypeId;
+        public int itemSetId;
+        public int rarity;
+        public int bindType;
+        public int minimunShardSlot;
+        public int maximumShardSlot;
+
+        public int getItemTypeId() {
+            return itemTypeId;
+        }
+    }
+
+    public static class ItemDef {
+        public int idItemDef;
+        public int level;
+        public BaseParameters baseParameters;
+        public UseParameters useParameters;
+        public GraphicParameters graphicParameters;
+        public int[] properties;
+    }
+    
+    public static class Definition {
+        public ItemDef item;
+        public UseEffect[] useEffects;
+        public UseEffect[] useCriticalEffects;
+        public EquipEffect[] equipEffects;
+    }
 
     @Id
     @JsonProperty("id")
@@ -118,4 +122,7 @@ public class Item {
         this.description = description;
     }
 
+    public BaseParameters getBaseParameters() {
+        return definition.item.baseParameters;
+    }
 }

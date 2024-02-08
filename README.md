@@ -8,7 +8,9 @@ Fait en Spring Boot pour le Back, Angular pour le front, Mongo DB pour la base d
 docker-compose up --build
 
 # To do
-- génération de build en cours
+- générer les items en fonction d'effects croissants
 - les int en float
 - parentId de equipmentItemType en string
+- @Id pour le build
+- créa de pb le public static dans la class equipmentItemType?
 - connexion / inscription

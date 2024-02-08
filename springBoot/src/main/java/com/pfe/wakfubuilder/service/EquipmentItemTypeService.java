@@ -34,6 +34,6 @@ public class EquipmentItemTypeService {
         if (itemTypeId == null) {
             return null;
         }
-        return equipmentItemTypeRepository.findByItemTypeId(itemTypeId).getDefinition().equipmentPositions;
+        return equipmentItemTypeRepository.findByItemTypeId(itemTypeId).getDefinition().getEquipmentPositions();
     }
 }

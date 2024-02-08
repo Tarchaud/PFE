@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,13 @@ import com.pfe.wakfubuilder.repository.ItemRepository;
 @Service
 public class BuildService {
 
-    private ItemRepository itemRepository;
-    private EquipmentItemTypeService equipmentItemTypeService;
+    private final ItemRepository itemRepository;
+    private final EquipmentItemTypeService equipmentItemTypeService;
+
+    public BuildService(ItemRepository itemRepository, EquipmentItemTypeService equipmentItemTypeService) {
+        this.itemRepository = itemRepository;
+        this.equipmentItemTypeService = equipmentItemTypeService;
+    }
 
     static private ArrayList<Build> builds = new ArrayList<>(Arrays.asList(
             new Build(1, "build 1", 1, Build.Cost.low),
@@ -48,7 +54,7 @@ public class BuildService {
         });
     }
 
-    public Build generateBuild(String name, int level, Build.Cost cost, List<Integer> effects) {
+    public void generateBuild(String name, int level, Build.Cost cost, List<Integer> effects) {
 
         // Récupérer les raretés en fonction du coût
         List<Integer> rarities;
@@ -69,17 +75,41 @@ public class BuildService {
         // Filtrer les items en fonction des critères spécifiés
         List<Item> filteredItems = itemRepository.findByCriteria(level-15, level, rarities, effects);
 
-        // Avoir un item pour chaque equipmentPositions possible
-        // equipmentItemTypeService.getEquipmentPositionByItemTypeId(filteredItems.get(i).BaseParameters.itemTypeId);
-        // permet d'avoir la position de l'item
+        // Sélectionne un item pour chaque equipmentPositions possible
+        List<Item> selectedItems = selectItems(filteredItems);
 
         Build build = new Build();
         build.setName(name);
         build.setLevel(level);
         build.setCost(cost);
         build.setEffects(effects);
-        build.setItems(filteredItems.toArray(new Item[filteredItems.size()]));
+        build.setItems(selectedItems.toArray(new Item[selectedItems.size()]));
+        builds.add(build);
+    }
 
-        return build;
+
+    // Pour l'instant, on sélectionne au hasard parmis les items filtrés, ensuite on fera par valeur d'effects croissants
+    private List<Item> selectItems(List<Item> filteredItems) {
+        List<Item> selectedItems = new ArrayList<>();
+        Random random = new Random();
+
+        // on test avec 14, car il risque d'y avoir une boucle infinie à cause de la position ['LEFT_HAND', 'RIGHT_HAND']
+        // qui comporte deux positions en une seule
+        while (selectedItems.size() < 14) {
+            if (filteredItems.isEmpty()) {
+                break;
+            }
+            // Sélectionner un item aléatoire parmi les items filtrés
+            Item selectedItem = filteredItems.get(random.nextInt(filteredItems.size()));
+            String[] equipmentPosition = equipmentItemTypeService.getEquipmentPositionByItemTypeId(selectedItem.getBaseParameters().getItemTypeId());
+
+            // Ajouter l'item sélectionné à la liste des items pour le build
+            selectedItems.add(selectedItem);
+
+            // Supprimer tous les items ayant la même equipmentPosition de la liste filtrée
+            filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).equals(equipmentPosition));
+        }
+
+        return selectedItems;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.pfe.wakfubuilder.model.Build;
+import com.pfe.wakfubuilder.model.BuildRequest;
 import com.pfe.wakfubuilder.service.BuildService;
 
 @RestController
@@ -37,5 +38,10 @@ public class BuildController {
     @RequestMapping(method = RequestMethod.PUT, value = "build/{id}")
     public void updateBuild(@PathVariable long id, @RequestBody Build build) {
         buildService.updateBuild(id, build);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "generateBuild")
+    public void generateBuild(@RequestBody BuildRequest buildRequest) {
+        buildService.generateBuild(buildRequest.getName(), buildRequest.getLevel(), buildRequest.getCost(), buildRequest.getEffects());
     }
 }
