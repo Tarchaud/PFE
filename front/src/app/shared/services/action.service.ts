@@ -9,13 +9,13 @@ import { ActionI } from '../models/action-i';
 })
 export class ActionService {
   public arr_actions : ActionI[] = [];
-  public map_actions = new Map<Number, ActionI>();
+  public map_actions = new Map<number, ActionI>();
 
   constructor(private http : HttpClient) { }
 
-  //TODO : link to the backend
   getAllActions() {
-    return this.http.get<ActionI[]>('assets/data/actions.json').subscribe({
+    const url = 'http://localhost:8080/actions';
+    return this.http.get<ActionI[]>(url).subscribe({
       next : (data : ActionI[]) => {
         this.arr_actions = data;
         this.mapActions();
@@ -31,7 +31,7 @@ export class ActionService {
 
   mapActions() {
     this.arr_actions.forEach((action) => {
-      this.map_actions.set(action.definition.id, action);
+      this.map_actions.set(action.definition.idActionDefinition, action);
     });
   }
 }

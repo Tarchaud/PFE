@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 //Services
 import { ActionService } from 'src/app/shared/services/action.service';
+import { BuildService } from 'src/app/shared/services/build.service';
 
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 @Component({
   selector: 'app-create-build',
@@ -17,7 +19,7 @@ export class CreateBuildComponent {
   selectedEffect: { [key: number]: boolean } = {};
 
 
-  constructor(public action : ActionService) { }
+  constructor(public action : ActionService, private buildService : BuildService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -50,6 +52,9 @@ export class CreateBuildComponent {
     console.log("Name : " + this.nameBuild);
     console.log("Level : " + this.levelBuild);
     console.table(this.effectBuild);
+
+    //TODO : comment
+    // this.buildService.createBuild(build);
 
     console.log("Build created");
     this.initForm();

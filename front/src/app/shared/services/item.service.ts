@@ -12,9 +12,9 @@ export class ItemService {
 
   constructor(private http : HttpClient) { }
 
-  //TODO : link to the backend
   getAllItems() {
-    return this.http.get<ItemI[]>('assets/data/items.json').subscribe({
+    const url = 'http://localhost:8080/items';
+    return this.http.get<ItemI[]>(url).subscribe({
       next : (data : ItemI[]) => {
         this.arr_items = data;
       },
@@ -27,13 +27,12 @@ export class ItemService {
     });
   }
 
-  //TODO : link to the backend
-  getAllItemsByType(type : number[]) {
-    return this.http.get<ItemI[]>('assets/data/items.json').subscribe({
+  getAllItemsByType(idTypes : number[]) {
+    const url = 'http://localhost:8080/items/equipmentItemType';
+    const params = { ids: idTypes.join(',') };
+    return this.http.get<ItemI[]>(url, { params }).subscribe({
       next : (data : ItemI[]) => {
-        this.arr_items = data.filter((item) => {
-          return type.includes(item.definition.item.baseParameters.itemTypeId);
-        });
+        this.arr_items = data;
 
         //sort by level
         this.arr_items = this.arr_items.sort((a, b) => {
@@ -50,11 +49,10 @@ export class ItemService {
   }
 
   getItemById(id : number) {
+    const url = 'http://localhost:8080/items/'+id;
     return this.http.get<ItemI[]>('assets/data/items.json').subscribe({
       next : (data : ItemI[]) => {
-        this.arr_items = data.filter((item) => {
-          return item.definition.item.id === id;
-        });
+        this.arr_items = data;
       },
       error : (err) => {
         console.log(err);

@@ -16,7 +16,7 @@ export interface ItemI {
 export interface effectI {
   effect : {
     definition : {
-      id : number;
+      idDefEffect : number;
       actionId : number;
       areaShape : number;
       areaSize : number[];
@@ -27,7 +27,7 @@ export interface effectI {
 }
 
 export interface defItemI {
-  id : number;
+  idItemDef : number;
   level : number;
   baseParameters : {
     itemTypeId : number;

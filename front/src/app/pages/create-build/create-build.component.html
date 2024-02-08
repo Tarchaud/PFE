@@ -17,8 +17,8 @@
         <label>Liste des effets du build : </label>
         <div class="box_effect">
           <div *ngFor="let a of action.arr_actions">
-            <input type="checkbox" [value]="a.definition.id" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.id]">
-            {{ a.definition.effect }} ({{ a.definition.id }})
+            <input type="checkbox" [value]="a.definition.idActionDefinition" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.idActionDefinition]">
+            {{ a.definition.effect }} ({{ a.definition.idActionDefinition }})
           </div>
         </div>
       </fieldset>

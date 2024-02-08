@@ -1,7 +1,7 @@
 export interface ActionI {
   id: string;
   definition : {
-    id : number;
+    idActionDefinition : number;
     effect : string;
   };
   description : TranslationI;
