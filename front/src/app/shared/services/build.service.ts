@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BuildI } from '../models/build-i';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuildService {
-  //TODO : create model Build
-  public arr_builds : any[] = [];
+  public arr_builds : BuildI[] = [];
 
   constructor(private http : HttpClient) { }
 
   //TODO : link to the backend
   getAllbuilds() {
-    return this.http.get<any[]>('assets/data/builds.json').subscribe({
-      next : (data : any[]) => {
+    return this.http.get<BuildI[]>('assets/data/builds.json').subscribe({
+      next : (data : BuildI[]) => {
         this.arr_builds = data;
       },
       error : (err) => {
@@ -30,7 +30,7 @@ export class BuildService {
   createBuild(build : any) {
     console.log("Build created");
     return this.http.post<any>('assets/data/builds.json', build).subscribe({
-      next : (data : any) => {
+      next : (data : BuildI) => {
         console.log(data);
       },
       error : (err) => {

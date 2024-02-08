@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Block } from 'notiflix/build/notiflix-block-aio';
 
 //Services
 import { ActionService } from 'src/app/shared/services/action.service';
@@ -34,12 +35,14 @@ export class CreateBuildComponent {
   }
 
   createBuild() {
+    Block.standard('.container', 'Please wait...');
     for(let key in this.selectedEffect) {
       if (this.selectedEffect[key]) {
         this.effectBuild.push(parseInt(key));
       }
     }
     if (this.effectBuild.length == 0 || this.nameBuild == "" || (this.levelBuild < 1 || this.levelBuild > 230)) {
+      Block.remove('.container');
       Notify.failure("Invalid Form");
       return;
     }
@@ -53,11 +56,13 @@ export class CreateBuildComponent {
     console.log("Level : " + this.levelBuild);
     console.table(this.effectBuild);
 
+    this.initForm();
     //TODO : comment
     // this.buildService.createBuild(build);
+    Block.remove('.container');
 
     console.log("Build created");
-    this.initForm();
+
   }
 
 }
