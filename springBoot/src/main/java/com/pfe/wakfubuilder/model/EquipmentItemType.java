@@ -5,24 +5,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class EquipmentItemTypeDefinition {
-    public int idEITDefinition;
-    public String parentId;
-    public String[] equipmentPositions;
-    public String[] equipmentDisabledPositions;
-    public boolean isRecyclable;
-    public boolean isVisibleInAnimation;
-}
-
 @Document(collection = "equipmentItemTypes")
 public class EquipmentItemType {
     
+    public static class EquipmentItemTypeDefinition {
+        public int idEITDefinition;
+        public String parentId;
+        public String[] equipmentPositions;
+        public String[] equipmentDisabledPositions;
+        public boolean isRecyclable;
+        public boolean isVisibleInAnimation;
+
+        public String[] getEquipmentPositions() {
+            return equipmentPositions;
+        }
+    }
+
     @Id
     @JsonProperty("id")
     private String id;
     private EquipmentItemTypeDefinition definition;
     private InfoTranslate title;
-
 
     /* Constructors */
     public EquipmentItemType() {}
