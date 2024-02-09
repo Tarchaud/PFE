@@ -14,7 +14,7 @@ export class BuildService {
 
   //TODO : link to the backend
   getAllbuilds() {
-    return this.http.get<BuildI[]>('assets/data/builds.json').subscribe({
+    return this.http.get<BuildI[]>('http://localhost:8080/builds').subscribe({
       next : (data : BuildI[]) => {
         this.arr_builds = data;
       },
@@ -29,14 +29,14 @@ export class BuildService {
 
   //TODO : link to the backend
   getBuildById(id : string) : Observable<BuildI> {
-    return this.http.get<BuildI>('assets/data/builds.json');
+    return this.http.get<BuildI>('http://localhost:8080/build/' + id);
   }
 
 
 
   //TODO : link to the backend
-  createBuild(build : any) : Observable<BuildI>{
+  createBuild(buildForm : any) : Observable<BuildI>{
     console.log("Build created");
-    return this.http.post<BuildI>('assets/data/builds.json', build);
+    return this.http.post<BuildI>('http://localhost:8080/generateBuild', buildForm);
   }
 }

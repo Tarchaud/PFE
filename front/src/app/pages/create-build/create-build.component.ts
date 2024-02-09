@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
+//Notiflix
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Block } from 'notiflix/build/notiflix-block-aio';
 
 //Services
 import { ActionService } from 'src/app/shared/services/action.service';
 import { BuildService } from 'src/app/shared/services/build.service';
+
+//Models
 import { BuildI } from 'src/app/shared/models/build-i';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,7 +41,7 @@ export class CreateBuildComponent {
   }
 
   createBuild() {
-    Block.standard('.container', 'Please wait...');
+    Block.arrows('.container', 'Please wait...');
     for(let key in this.selectedEffect) {
       if (this.selectedEffect[key]) {
         this.effectBuild.push(parseInt(key));
@@ -50,32 +53,32 @@ export class CreateBuildComponent {
       return;
     }
 
-    let build = {
+    let buildForm = {
       name : this.nameBuild,
       level : this.levelBuild,
       cost : this.costBuild,
-      effect : this.effectBuild
+      effects : this.effectBuild
     }
     //TODO : clear
-    console.log(build);
+    console.log(buildForm);
 
 
     this.initForm();
-    // this.buildService.createBuild(build).subscribe({
-    //   next : (data : BuildI) => {
-    //     console.log(data);
-    //     this.route.navigate(['/build', data.id]);
-    //   },
-    //   error : (err) => {
-    //     console.log(err.message);
-    //     Notify.failure(err.message);
-    //   },
-    //   complete : () => {
-    //       Block.remove('.container');
-    //       console.log('Build created');
-    //     }
-    //   }
-    // );
+    this.buildService.createBuild(buildForm).subscribe({
+      next : (data : BuildI) => {
+        console.log(data);
+        this.route.navigate(['/build', data.id]);
+      },
+      error : (err) => {
+        console.log(err.message);
+        Notify.failure(err.message);
+      },
+      complete : () => {
+          Block.remove('.container');
+          console.log('Build created');
+        }
+      }
+    );
   }
 
 }
