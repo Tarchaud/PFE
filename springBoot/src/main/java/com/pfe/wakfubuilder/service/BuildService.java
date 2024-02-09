@@ -3,8 +3,10 @@ package com.pfe.wakfubuilder.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -69,10 +71,10 @@ public class BuildService {
                 rarities = Arrays.asList(1, 2, 3);
                 break;
             case medium:
-                rarities = Collections.singletonList(4);
+                rarities = Collections.singletonList(3);
                 break;
             case high:
-                rarities = Arrays.asList(5, 6);
+                rarities = Arrays.asList(4, 5, 6);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid cost: " + cost);
@@ -100,24 +102,36 @@ public class BuildService {
     private List<Item> selectItems(List<Item> filteredItems) {
         List<Item> selectedItems = new ArrayList<>();
         Random random = new Random();
-
-        // on test avec 14, car il risque d'y avoir une boucle infinie à cause de la position ['LEFT_HAND', 'RIGHT_HAND']
+        Set<String> selectedPositions = new HashSet<>();
+    
+        // traiter le cas de la position ['LEFT_HAND', 'RIGHT_HAND']
         // qui comporte deux positions en une seule
-        while (selectedItems.size() < 14) {
-            if (filteredItems.isEmpty()) {
-                break;
-            }
+        while (selectedItems.size() < 15 && !filteredItems.isEmpty()) {
             // Sélectionner un item aléatoire parmi les items filtrés
             Item selectedItem = filteredItems.get(random.nextInt(filteredItems.size()));
-            String[] equipmentPosition = equipmentItemTypeService.getEquipmentPositionByItemTypeId(selectedItem.getBaseParameters().getItemTypeId());
-
-            // Ajouter l'item sélectionné à la liste des items pour le build
-            selectedItems.add(selectedItem);
-
-            // Supprimer tous les items ayant la même equipmentPosition de la liste filtrée
-            filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).equals(equipmentPosition));
+            String[] equipmentPositions = equipmentItemTypeService.getEquipmentPositionByItemTypeId(selectedItem.getBaseParameters().getItemTypeId());
+    
+            // Vérifier chaque position d'équipement
+            boolean allPositionsSelected = true;
+            for (String equipmentPosition : equipmentPositions) {
+                if (!selectedPositions.contains(equipmentPosition)) {
+                    allPositionsSelected = false;
+                    break;
+                }
+            }
+    
+            // Si toutes les positions d'équipement ne sont pas déjà sélectionnées, ajouter l'item à la liste des items pour le build
+            if (!allPositionsSelected) {
+                selectedItems.add(selectedItem);
+                // Ajouter toutes les positions d'équipement de l'item à l'ensemble des positions sélectionnées
+                selectedPositions.addAll(Arrays.asList(equipmentPositions));
+            }
+    
+            // Supprimer l'item sélectionné de la liste filtrée
+            filteredItems.remove(selectedItem);
         }
-
+    
         return selectedItems;
     }
+    
 }
