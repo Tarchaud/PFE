@@ -54,7 +54,7 @@ public class BuildService {
         });
     }
 
-    public void generateBuild(String name, int level, Build.Cost cost, List<Integer> effects) {
+    public Build generateBuild(String name, int level, Build.Cost cost, List<Integer> effects) {
 
         // Récupérer les raretés en fonction du coût
         List<Integer> rarities;
@@ -85,6 +85,8 @@ public class BuildService {
         build.setEffects(effects);
         build.setItems(selectedItems.toArray(new Item[selectedItems.size()]));
         builds.add(build);
+
+        return build;
     }
 
 

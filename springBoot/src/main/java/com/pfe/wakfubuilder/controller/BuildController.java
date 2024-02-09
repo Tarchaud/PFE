@@ -41,7 +41,7 @@ public class BuildController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "generateBuild")
-    public void generateBuild(@RequestBody BuildRequest buildRequest) {
-        buildService.generateBuild(buildRequest.getName(), buildRequest.getLevel(), buildRequest.getCost(), buildRequest.getEffects());
+    public Build generateBuild(@RequestBody BuildRequest buildRequest) {
+        return buildService.generateBuild(buildRequest.getName(), buildRequest.getLevel(), buildRequest.getCost(), buildRequest.getEffects());
     }
 }
