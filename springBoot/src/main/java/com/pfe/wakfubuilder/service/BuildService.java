@@ -104,9 +104,19 @@ public class BuildService {
         Random random = new Random();
         Set<String> selectedPositions = new HashSet<>();
     
+        // Ajouter la dragodinde comme item de base à l'emplacement des montures
+        // Toutes les montures ont le même bonus dans le jeu
+        Item dragodinde = itemRepository.findById(18682);
+        selectedItems.add(dragodinde);
+
+        // On supprime toutes les montures de la liste des items filtrés
+        filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
+
         // traiter le cas de la position ['LEFT_HAND', 'RIGHT_HAND']
         // qui comporte deux positions en une seule
-        while (selectedItems.size() < 15 && !filteredItems.isEmpty()) {
+        // & le cas des armes
+        // Il y a au maximum 14 items dans un build
+        while (selectedItems.size() < 14 && !filteredItems.isEmpty()) {
             // Sélectionner un item aléatoire parmi les items filtrés
             Item selectedItem = filteredItems.get(random.nextInt(filteredItems.size()));
             String[] equipmentPositions = equipmentItemTypeService.getEquipmentPositionByItemTypeId(selectedItem.getBaseParameters().getItemTypeId());
