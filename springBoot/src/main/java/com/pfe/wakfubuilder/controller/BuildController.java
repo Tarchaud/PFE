@@ -21,22 +21,22 @@ public class BuildController {
     }
 
     @GetMapping("/build/{id}")
-    public Build getBuild(@PathVariable long id) {
+    public Build getBuild(@PathVariable String id) {
         return buildService.getBuild(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value ="build/{id}")
-    public void deleteBuild(@PathVariable long id) {
+    public void deleteBuild(@PathVariable String id) {
         buildService.deleteBuild(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "builds")
-    public void addBuild(@RequestBody Build build) {
-        BuildService.addBuild(build);
+    public void saveBuild(@RequestBody Build build) {
+        buildService.saveBuild(build);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "build/{id}")
-    public void updateBuild(@PathVariable long id, @RequestBody Build build) {
+    public void updateBuild(@PathVariable String id, @RequestBody Build build) {
         buildService.updateBuild(id, build);
     }
 
