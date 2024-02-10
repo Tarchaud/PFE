@@ -3,16 +3,15 @@ package com.pfe.wakfubuilder.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.pfe.wakfubuilder.model.Build;
 import com.pfe.wakfubuilder.model.Item;
+import com.pfe.wakfubuilder.model.Item.DefinitionEffect;
 import com.pfe.wakfubuilder.repository.BuildRepository;
 import com.pfe.wakfubuilder.repository.ItemRepository;
 
@@ -81,10 +80,15 @@ public class BuildService {
         }
 
         // Filtrer les items en fonction des critères spécifiés
-        List<Item> filteredItems = itemRepository.findByCriteria(level-15, level, rarities, effects);
+        List<Item> filteredItems;
+        if (level <= 15) {
+            filteredItems = itemRepository.findByCriteria(1, level, rarities, effects);
+        } else {
+            filteredItems = itemRepository.findByCriteria(level-15, level, rarities, effects);
+        }
 
         // Sélectionne un item pour chaque equipmentPositions possible
-        List<Item> selectedItems = selectItems(filteredItems);
+        List<Item> selectedItems = selectItems(filteredItems, effects);
 
         Build build = new Build();
         build.setName(name);
@@ -97,50 +101,87 @@ public class BuildService {
         return build;
     }
 
+    private List<Item> selectItems(List<Item> filteredItems, List<Integer> effects) {
 
-    // Pour l'instant, on sélectionne au hasard parmis les items filtrés, ensuite on fera par valeur d'effects croissants
-    private List<Item> selectItems(List<Item> filteredItems) {
+        List<List<String>> equipmentPositions = new ArrayList<>();
+
+        equipmentPositions.add(Collections.singletonList("BACK"));
+        equipmentPositions.add(Collections.singletonList("LEGS"));
+        equipmentPositions.add(Collections.singletonList("FIRST_WEAPON"));
+        equipmentPositions.add(Collections.singletonList("SECOND_WEAPON"));
+        equipmentPositions.add(Collections.singletonList("NECK"));
+        equipmentPositions.add(Collections.singletonList("BELT"));
+        equipmentPositions.add(Collections.singletonList("HEAD"));
+        equipmentPositions.add(Collections.singletonList("CHEST"));
+        equipmentPositions.add(Collections.singletonList("SHOULDERS"));
+        equipmentPositions.add(Collections.singletonList("PET"));
+        equipmentPositions.add(new ArrayList<>()); // equipmentPosition des montures
+        equipmentPositions.add(Collections.singletonList("ACCESSORY"));
+        equipmentPositions.add(Arrays.asList("LEFT_HAND", "RIGHT_HAND"));
+
         List<Item> selectedItems = new ArrayList<>();
-        Random random = new Random();
-        Set<String> selectedPositions = new HashSet<>();
+        for (int i = 0; i < equipmentPositions.size(); i++) {
+            selectedItems.add(null);
+        }
     
-        // Ajouter la dragodinde comme item de base à l'emplacement des montures
-        // Toutes les montures ont le même bonus dans le jeu
+        // Ajouter la dragodinde comme item de base à l'emplacement des montures car toutes les montures ont le même bonus
         Item dragodinde = itemRepository.findById(18682);
-        selectedItems.add(dragodinde);
+        selectedItems.set(equipmentPositions.indexOf(new ArrayList<>()), dragodinde);
 
         // On supprime toutes les montures de la liste des items filtrés
         filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
 
-        // traiter le cas de la position ['LEFT_HAND', 'RIGHT_HAND']
-        // qui comporte deux positions en une seule
-        // & le cas des armes
-        // Il y a au maximum 14 items dans un build
-        while (selectedItems.size() < 14 && !filteredItems.isEmpty()) {
-            // Sélectionner un item aléatoire parmi les items filtrés
-            Item selectedItem = filteredItems.get(random.nextInt(filteredItems.size()));
-            String[] equipmentPositions = equipmentItemTypeService.getEquipmentPositionByItemTypeId(selectedItem.getBaseParameters().getItemTypeId());
-    
-            // Vérifier chaque position d'équipement
-            boolean allPositionsSelected = true;
-            for (String equipmentPosition : equipmentPositions) {
-                if (!selectedPositions.contains(equipmentPosition)) {
-                    allPositionsSelected = false;
-                    break;
+        // On associe un tableau de valeur à chaque effet demandé pour les quantifier ensuite dans les items
+        float[] valuesOfEffects = new float[effects.size()];
+
+        // On parcourt toutes les equipmentPositions
+        for (List<String> equipmentPosition : equipmentPositions) {
+
+            // On récupère tous les items qui ont l'equipmentPosition courante
+            List<Item> itemsWithGivenEquipmentPosition = filteredItems.stream()
+                .filter(item -> equipmentPosition.equals(Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()))))
+                .collect(Collectors.toList());
+            System.out.println("Les items qui ont l'equipmentPosition " + equipmentPosition + " : " + itemsWithGivenEquipmentPosition.size());
+
+            // On les parcourt
+            for (Item item : itemsWithGivenEquipmentPosition) {
+
+                // On parcourt les definitionsEffect de l'item, qui sont les effets de l'item
+                List<DefinitionEffect> definitionsEffectOfTheItem = item.getDefinitionsEffect();
+
+                // On parcourt les effets de l'item
+                for (DefinitionEffect definitionEffect : definitionsEffectOfTheItem) {
+
+                    // Si l'effet de l'item est dans la liste des effets demandés
+                    if (effects.contains(definitionEffect.getActionId())) {
+
+                        // On récupère l'index de l'effet dans la liste effects
+                        int index = effects.indexOf(definitionEffect.getActionId());
+
+                        // On compare la valeur de params[0] de l'effet de l'item courant avec la valeur de params[0] de l'effet de l'item déjà sélectionné
+                        // Cette valeur de params[0] est ce qui quantifie l'effet de l'item
+                        if (definitionEffect.getParams()[0] > valuesOfEffects[index]) {
+
+                            // On remplace l'item déjà sélectionné par l'item courant
+                            selectedItems.set(equipmentPositions.indexOf(equipmentPosition), item);
+
+                            // On remplace la valeur de params[0] de l'effet de l'item déjà sélectionné par la valeur de params[0] de l'effet de l'item courant
+                            valuesOfEffects[index] = definitionEffect.getParams()[0];
+                        }
+                    }
                 }
             }
-    
-            // Si toutes les positions d'équipement ne sont pas déjà sélectionnées, ajouter l'item à la liste des items pour le build
-            if (!allPositionsSelected) {
-                selectedItems.add(selectedItem);
-                // Ajouter toutes les positions d'équipement de l'item à l'ensemble des positions sélectionnées
-                selectedPositions.addAll(Arrays.asList(equipmentPositions));
+            
+            // On remet à 0 les valeurs des effets demandés pour le prochain set d'items
+            for (int i = 0; i < valuesOfEffects.length; i++) {
+                valuesOfEffects[i] = 0.0f;
             }
-    
-            // Supprimer l'item sélectionné de la liste filtrée
-            filteredItems.remove(selectedItem);
+
+            System.out.println("Avant suppresion des items avec l'equipmentPosition " + equipmentPosition + " : " + filteredItems.size());
+            // On supprime de la liste des items filtrés tous ceux qui ont l'equipmentPosition courante
+            filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(equipmentPosition));
+            System.out.println("Après suppresion des items avec l'equipmentPosition " + equipmentPosition + " : " + filteredItems.size());
         }
-    
         return selectedItems;
     }
     
