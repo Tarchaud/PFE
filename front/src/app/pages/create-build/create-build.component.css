@@ -22,15 +22,20 @@ form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  align-items:flex-start;
+  align-items:stretch;
   padding: 10px 20px;
 
 }
 
 .box_effect {
-  width: 500px;
+  width: fit-content;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
   padding: 10px 20px;
+}
+
+button {
+  margin : 10px 0;
+  font-size: 1em;
 }

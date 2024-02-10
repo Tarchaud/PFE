@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BuildI } from 'src/app/shared/models/build-i';
+import { ActionService } from 'src/app/shared/services/action.service';
 import { BuildService } from 'src/app/shared/services/build.service';
 
 @Component({
@@ -13,9 +14,10 @@ export class BuildComponent {
   param !: string;
 
 
-  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService) {
+  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService, private action : ActionService) {
     this.param = this.activeRoute.snapshot.paramMap.get('buildId') || '';
     console.log('params : ', this.param);
+    this.action.getAllActions();
     this.buildService.getBuildById(this.param).subscribe({
       next : (data : BuildI) => {
         this.build = data;

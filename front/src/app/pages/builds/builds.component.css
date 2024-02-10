@@ -1,27 +1,26 @@
 .container {
+  width: 100vw;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items:flex-start;
   padding: 10px 20px;
-  border-bottom: 1px solid var(--gris);
 }
 
 /* Partie filtre */
 .div_filtre {
-  width: 250px;
+  width: 20vw;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   align-items: stretch;
 }
 
-.name_items {
+/* .name_items {
   width:200px;
-}
+} */
 
 input[type="text"]{
   width: 150px;
@@ -41,7 +40,7 @@ input[type="text"]{
 .liste_builds {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content:column nowrap;
   align-items: stretch;
   width: 100%;
   height: 100vh;
@@ -49,3 +48,36 @@ input[type="text"]{
   padding: 10px 20px;
 }
 
+/* Partie Card_build */
+.card_build {
+  width: 60vw;
+  height: fit-content;
+  padding: 10px 10px;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.card_build_header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+}
+
+hr {
+  width: 100%;
+  margin: 0;
+}
+
+.card_build_item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+}
