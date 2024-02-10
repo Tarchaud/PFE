@@ -13,4 +13,7 @@ public interface ItemRepository extends MongoRepository<Item, String> {
 
     @Query("{ 'definition.item.level': { $gte: ?0, $lte: ?1 }, 'definition.item.baseParameters.rarity': { $in: ?2 }, 'definition.equipEffects.effect.definition.actionId': { $in: ?3 }}")
     List<Item> findByCriteria(int minLevel, int maxLevel, List<Integer> rarities, List<Integer> effects);
+
+    @Query("{ 'definition.item.idItemDef': { $eq: ?0 } }")
+    Item findById(int id);
 }
