@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+//Models
 import { BuildI } from 'src/app/shared/models/build-i';
+
+//Services
 import { ActionService } from 'src/app/shared/services/action.service';
 import { BuildService } from 'src/app/shared/services/build.service';
 

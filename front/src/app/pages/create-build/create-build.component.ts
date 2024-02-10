@@ -59,8 +59,6 @@ export class CreateBuildComponent {
       cost : this.costBuild,
       effects : this.effectBuild
     }
-    //TODO : clear
-    console.log(buildForm);
 
 
     this.initForm();

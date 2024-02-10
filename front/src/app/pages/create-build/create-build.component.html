@@ -2,7 +2,7 @@
 
   <div class="box_form">
     <form (submit)="createBuild()">
-      <button type="submit"><h4>Crée mon build</h4></button>
+      <button type="submit">Crée mon build</button>
       <fieldset>
         <label>Nom  du Build : </label>
         <input [(ngModel)]="nameBuild" name="nameBuild" required>
@@ -25,9 +25,13 @@
       <fieldset>
         <label>Liste des effets du build : </label>
         <div class="box_effect">
-          <div *ngFor="let a of action.arr_actions">
-            <input type="checkbox" [value]="a.definition.idActionDefinition" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.idActionDefinition]">
-            {{ a.definition.effect }} ({{ a.definition.idActionDefinition }})
+          <div *ngFor="let action of action.map_Effects | keyvalue">
+            <h3>{{ action.key }}</h3>
+            <div *ngFor="let a of action.value">
+              <input type="checkbox" [value]="a.definition.idActionDefinition" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.idActionDefinition]">
+              {{ a.definition.effect }} ({{ a.definition.idActionDefinition }})
+            </div>
+            <hr />
           </div>
         </div>
       </fieldset>

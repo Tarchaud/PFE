@@ -10,6 +10,9 @@ import { ActionI } from '../models/action-i';
 export class ActionService {
   public arr_actions : ActionI[] = [];
   public map_actions = new Map<number, ActionI>();
+  public keyEffects : string[] = ["Gain", "Boost", "Soin", "Perte", "Dommage"]
+  public map_Effects !: Map<string, ActionI[]>;
+
 
   constructor(private http : HttpClient) { }
 
@@ -19,6 +22,7 @@ export class ActionService {
       next : (data : ActionI[]) => {
         this.arr_actions = data;
         this.mapActions();
+        this.mapEffects();
       },
       error : (err) => {
         console.log(err);
@@ -34,4 +38,36 @@ export class ActionService {
       this.map_actions.set(action.definition.idActionDefinition, action);
     });
   }
+
+  mapEffects() {
+    let filteredActions = this.filterEffects(this.arr_actions);
+    console.log(filteredActions);
+
+    this.map_Effects = filteredActions.reduce((map, action) => {
+        this.keyEffects.forEach(effect => {
+            if (action.definition.effect.search(effect + " :") !== -1) {
+                const existingActions = map.get(effect) || [];
+                existingActions.push(action);
+                map.set(effect, existingActions);
+            }
+        });
+        return map;
+    }, new Map<string, ActionI[]>());
+    console.log(this.map_Effects);
+  }
+
+  filterEffects(arr_actions : ActionI[] ) : ActionI[] {
+    let arr : ActionI[] = [];
+    let deboost : string = 'Deboost';
+    let id_to_remove : number[] = [979,832,1020,400, 2001, 300, 865,330,843,304];
+    for (let i = 0; i < arr_actions.length; i++) {
+      if (arr_actions[i].definition.effect.search(deboost) == -1 && !id_to_remove.includes(arr_actions[i].definition.idActionDefinition) ){
+        arr.push(arr_actions[i]);
+      }
+    }
+    arr.sort((a, b) => (a.definition.idActionDefinition > b.definition.idActionDefinition) ? 1 : -1);
+    return arr;
+  }
+
+
 }
