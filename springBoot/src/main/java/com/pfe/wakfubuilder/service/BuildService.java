@@ -131,11 +131,10 @@ public class BuildService {
         // On supprime toutes les montures de la liste des items filtrés
         filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
 
-        // On associe un tableau de valeur à chaque effet demandé pour les quantifier ensuite dans les items
-        float[] valuesOfEffects = new float[effects.size()];
-
         // On parcourt toutes les equipmentPositions
         for (List<String> equipmentPosition : equipmentPositions) {
+
+            float totalValue = 0.0f;
 
             // On récupère tous les items qui ont l'equipmentPosition courante
             List<Item> itemsWithGivenEquipmentPosition = filteredItems.stream()
@@ -143,45 +142,39 @@ public class BuildService {
                 .collect(Collectors.toList());
             System.out.println("Les items qui ont l'equipmentPosition " + equipmentPosition + " : " + itemsWithGivenEquipmentPosition.size());
 
-            // On les parcourt
             for (Item item : itemsWithGivenEquipmentPosition) {
 
-                // On parcourt les definitionsEffect de l'item, qui sont les effets de l'item
+                float totalValueOfTheItem = 0.0f;
+
+                // On récupère les definitionsEffect de l'item, qui sont les effets de l'item
                 List<DefinitionEffect> definitionsEffectOfTheItem = item.getDefinitionsEffect();
 
-                // On parcourt les effets de l'item
                 for (DefinitionEffect definitionEffect : definitionsEffectOfTheItem) {
 
-                    // Si l'effet de l'item est dans la liste des effets demandés
+                    // Si l'id de l'effet de l'item est dans la liste des ids des effets demandés
                     if (effects.contains(definitionEffect.getActionId())) {
 
-                        // On récupère l'index de l'effet dans la liste effects
-                        int index = effects.indexOf(definitionEffect.getActionId());
+                        // On l'ajoute à la valeur totale de l'item
+                        totalValueOfTheItem += definitionEffect.getParams()[0];
 
-                        // On compare la valeur de params[0] de l'effet de l'item courant avec la valeur de params[0] de l'effet de l'item déjà sélectionné
-                        // Cette valeur de params[0] est ce qui quantifie l'effet de l'item
-                        if (definitionEffect.getParams()[0] > valuesOfEffects[index]) {
-
-                            // On remplace l'item déjà sélectionné par l'item courant
-                            selectedItems.set(equipmentPositions.indexOf(equipmentPosition), item);
-
-                            // On remplace la valeur de params[0] de l'effet de l'item déjà sélectionné par la valeur de params[0] de l'effet de l'item courant
-                            valuesOfEffects[index] = definitionEffect.getParams()[0];
-                        }
                     }
+                }
+
+                if (totalValueOfTheItem > totalValue) {
+
+                    // On définit l'item courant à la position courante
+                    selectedItems.set(equipmentPositions.indexOf(equipmentPosition), item);
+
+                    // La valeur totale du set d'item devient la valeur totale de l'item courant
+                    totalValue = totalValueOfTheItem;
                 }
             }
             
-            // On remet à 0 les valeurs des effets demandés pour le prochain set d'items
-            for (int i = 0; i < valuesOfEffects.length; i++) {
-                valuesOfEffects[i] = 0.0f;
-            }
-
-            System.out.println("Avant suppresion des items avec l'equipmentPosition " + equipmentPosition + " : " + filteredItems.size());
             // On supprime de la liste des items filtrés tous ceux qui ont l'equipmentPosition courante
             filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(equipmentPosition));
-            System.out.println("Après suppresion des items avec l'equipmentPosition " + equipmentPosition + " : " + filteredItems.size());
+            
         }
+        
         return selectedItems;
     }
     

@@ -11,9 +11,11 @@ docker-compose up
 docker-compose down
 
 # To do
-- gérer plusieurs effets :
-Si des items ont plusieurs effects dans la liste effects, 
-on prendra la somme des valeurs de params[0] pour chaque effet pour les comparer.
+- mettre des coefficients sur les effets
+
+- mettre la dragodinde qu'à partir du level 35
+
+- cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments
 
 - cas particulier des familiers :
 Mettre un familier de base, mais aussi chercher s'il y en a pas un qui correspond à un des effets choisis. Pour ça, on va les prendre dans l'ordre les effets, et on demande à l'user de les rentrer (les effets) par ordre d'importance.
