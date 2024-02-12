@@ -11,8 +11,6 @@ docker-compose up
 docker-compose down
 
 # To do
-- mettre des coefficients sur les effets
-
 - mettre la dragodinde qu'à partir du level 35
 
 - cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments

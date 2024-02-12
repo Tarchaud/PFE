@@ -21,11 +21,13 @@ public class BuildService {
     private final BuildRepository buildRepository;
     private final ItemRepository itemRepository;
     private final EquipmentItemTypeService equipmentItemTypeService;
+    private final ItemService itemService;
 
-    public BuildService(BuildRepository buildRepository, ItemRepository itemRepository, EquipmentItemTypeService equipmentItemTypeService) {
+    public BuildService(BuildRepository buildRepository, ItemRepository itemRepository, EquipmentItemTypeService equipmentItemTypeService, ItemService itemService) {
         this.buildRepository = buildRepository;
         this.itemRepository = itemRepository;
         this.equipmentItemTypeService = equipmentItemTypeService;
+        this.itemService = itemService;
     }
 
     public List<Build> getBuilds() {
@@ -131,20 +133,27 @@ public class BuildService {
         // On supprime toutes les montures de la liste des items filtrés
         filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
 
+        float totalValue = 0.0f;
+        float totalValueOfTheItem = 0.0f;
+
         // On parcourt toutes les equipmentPositions
         for (List<String> equipmentPosition : equipmentPositions) {
 
-            float totalValue = 0.0f;
+            totalValue = 0.0f;
 
             // On récupère tous les items qui ont l'equipmentPosition courante
             List<Item> itemsWithGivenEquipmentPosition = filteredItems.stream()
                 .filter(item -> equipmentPosition.equals(Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()))))
                 .collect(Collectors.toList());
-            System.out.println("Les items qui ont l'equipmentPosition " + equipmentPosition + " : " + itemsWithGivenEquipmentPosition.size());
+        
+            // On récupère les items qui ont le plus d'effets demandés
+            List<Item> itemsWithTheMostEffects = itemService.getItemsWithTheMostEffects(itemsWithGivenEquipmentPosition, effects);
+                  
+            // On cherche à savoir quel item, parmi ceux qui ont le plus d'effets demandés
+            // a la plus grande somme de ses effets / celui qui donne le meilleur bonus
+            for (Item item : itemsWithTheMostEffects) {
 
-            for (Item item : itemsWithGivenEquipmentPosition) {
-
-                float totalValueOfTheItem = 0.0f;
+                totalValueOfTheItem = 0.0f;
 
                 // On récupère les definitionsEffect de l'item, qui sont les effets de l'item
                 List<DefinitionEffect> definitionsEffectOfTheItem = item.getDefinitionsEffect();
@@ -160,9 +169,10 @@ public class BuildService {
                     }
                 }
 
+                // Si la valeur total de l'item est supérieure à la valeur globale du set d'items
                 if (totalValueOfTheItem > totalValue) {
 
-                    // On définit l'item courant à la position courante
+                    // On définit l'item courant à la position courante dans les items sélectionnés
                     selectedItems.set(equipmentPositions.indexOf(equipmentPosition), item);
 
                     // La valeur totale du set d'item devient la valeur totale de l'item courant
