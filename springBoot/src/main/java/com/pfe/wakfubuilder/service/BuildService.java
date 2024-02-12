@@ -90,7 +90,7 @@ public class BuildService {
         }
 
         // Sélectionne un item pour chaque equipmentPositions possible
-        List<Item> selectedItems = selectItems(filteredItems, effects);
+        List<Item> selectedItems = selectItems(filteredItems, level, effects);
 
         Build build = new Build();
         build.setName(name);
@@ -103,7 +103,7 @@ public class BuildService {
         return build;
     }
 
-    private List<Item> selectItems(List<Item> filteredItems, List<Integer> effects) {
+    private List<Item> selectItems(List<Item> filteredItems, Integer level, List<Integer> effects) {
 
         List<List<String>> equipmentPositions = new ArrayList<>();
 
@@ -126,9 +126,12 @@ public class BuildService {
             selectedItems.add(null);
         }
     
-        // Ajouter la dragodinde comme item de base à l'emplacement des montures car toutes les montures ont le même bonus
-        Item dragodinde = itemRepository.findById(18682);
-        selectedItems.set(equipmentPositions.indexOf(new ArrayList<>()), dragodinde);
+        // Si le level est suffisant
+        if (level >= 35) {
+            // Ajouter la dragodinde comme item de base à l'emplacement des montures car toutes les montures ont le même bonus
+            Item dragodinde = itemRepository.findById(18682);
+            selectedItems.set(equipmentPositions.indexOf(new ArrayList<>()), dragodinde);
+        }
 
         // On supprime toutes les montures de la liste des items filtrés
         filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);

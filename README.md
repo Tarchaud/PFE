@@ -11,10 +11,6 @@ docker-compose up
 docker-compose down
 
 # To do
-- mettre la dragodinde qu'à partir du level 35
-
-- cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments
-
 - cas particulier des familiers :
 Mettre un familier de base, mais aussi chercher s'il y en a pas un qui correspond à un des effets choisis. Pour ça, on va les prendre dans l'ordre les effets, et on demande à l'user de les rentrer (les effets) par ordre d'importance.
 + Gérer les cas où on pourrait avoir un familier quand même : on peut les avoir dans le filtre pour un cost low, et pour les lvls 0-15, si on prend divers effects
@@ -22,7 +18,7 @@ Mettre un familier de base, mais aussi chercher s'il y en a pas un qui correspon
 - cas particulier de la position ['LEFT_HAND', 'RIGHT_HAND'] qui comporte deux positions en une seule
 & le cas des armes à deux mains, qui disable la deuxième arme
 
+- cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments -> la séparer en 3
+
 - firebase pour avoir déjà des builds?
-- les int en float
-- parentId de equipmentItemType en string
 - connexion / inscription
