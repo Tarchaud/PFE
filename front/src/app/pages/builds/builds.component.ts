@@ -10,6 +10,7 @@ export class BuildsComponent {
   levelFilter: number[] = [0, 230];
   toShow: number = 20;
   nameBuild : string = '';
+  costFilter : string = 'all';
 
   constructor(public builds : BuildService) { }
 

@@ -21,6 +21,18 @@ hr {
   margin: 0;
 }
 
+.box_items_infos {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+}
+
+.box_effects_info {
+  width: auto;
+}
+
+
 .liste_items {
   display: flex;
   flex-flow: row wrap;

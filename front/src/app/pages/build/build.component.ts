@@ -18,7 +18,7 @@ export class BuildComponent {
   param !: string;
 
 
-  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService, private action : ActionService) {
+  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService, public action : ActionService) {
     this.param = this.activeRoute.snapshot.paramMap.get('buildId') || '';
     console.log('params : ', this.param);
     this.action.getAllActions();

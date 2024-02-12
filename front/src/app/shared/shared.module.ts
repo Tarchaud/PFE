@@ -11,6 +11,8 @@ import { RarityPipe } from './pipes/rarity.pipe';
 import { ElementPipe } from './pipes/element.pipe';
 import { LevelPipe } from './pipes/level.pipe';
 import { ItemPipe } from './pipes/item.pipe';
+import { SentenceCostPipe } from './pipes/sentence-cost.pipe';
+import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
 
 
 @NgModule({
@@ -18,13 +20,17 @@ import { ItemPipe } from './pipes/item.pipe';
     RarityPipe,
     ElementPipe,
     LevelPipe,
-    ItemPipe
+    ItemPipe,
+    SentenceCostPipe,
+    CostFiilterPipe
   ],
   exports: [
     RarityPipe,
     ElementPipe,
     LevelPipe,
     ItemPipe,
+    SentenceCostPipe,
+    CostFiilterPipe,
     MatSliderModule,
     FormsModule,
     HttpClientModule,

@@ -17,13 +17,14 @@
         <label>Coût du Build: </label>
         <select name="classBuild" [(ngModel)]="costBuild" required>
           <option value="low">Bas</option>
-          <option value="medium">moyen</option>
+          <option value="medium">Moyen</option>
           <option value="high">Elevé</option>
         </select>
       </fieldset>
 
       <fieldset>
-        <label>Liste des effets du build : </label>
+        <label>Choix des effets pour le build : </label>
+        <h6>Au minumun 1 effects ( recommander de d'en mettre plus)</h6>
         <div class="box_effect">
           <div *ngFor="let action of action.map_Effects | keyvalue">
             <h3>{{ action.key }}</h3>
