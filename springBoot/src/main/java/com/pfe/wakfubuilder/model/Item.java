@@ -1,29 +1,13 @@
 package com.pfe.wakfubuilder.model;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-class DefinitionEffect {
-    public int idEffectDef;
-    public int actionId;
-    public int areaShape;
-    public int[] areaSize;
-    public int[] params;
-}
-
-class Effect {
-    public DefinitionEffect definition;
-    public InfoTranslate description;
-}
-
-class EquipEffect {
-    public Effect effect;
-}
-class UseEffect {
-    public Effect effect;
-}
 
 class UseParameters {
     public int useCostAP;
@@ -75,6 +59,34 @@ public class Item {
         public EquipEffect[] equipEffects;
     }
 
+    public static class DefinitionEffect {
+        public int idEffectDef;
+        public int actionId;
+        public int areaShape;
+        public int[] areaSize;
+        public float[] params;
+
+        public float[] getParams() {
+            return params;
+        }
+
+        public int getActionId() {
+            return actionId;
+        }
+    }
+
+    public static class Effect {
+        public DefinitionEffect definition;
+        public InfoTranslate description;
+    }
+    
+    public static class EquipEffect {
+        public Effect effect;
+    }
+    public static class UseEffect {
+        public Effect effect;
+    }
+
     @Id
     @JsonProperty("id")
     private String id;
@@ -124,5 +136,11 @@ public class Item {
 
     public BaseParameters getBaseParameters() {
         return definition.item.baseParameters;
+    }
+
+    public List<DefinitionEffect> getDefinitionsEffect() {
+        return Arrays.stream(definition.equipEffects)
+                     .map(equipEffect -> equipEffect.effect.definition)
+                     .collect(Collectors.toList());
     }
 }
