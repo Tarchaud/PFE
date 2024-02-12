@@ -20,6 +20,7 @@
           <li *ngFor="let e of build.effects"> {{ action.map_actions.get(e)?.definition?.effect }} </li>
         </ul>
       </div>
+      <mat-divider [vertical]="true"></mat-divider>
       <div class="liste_items">
         <app-card-item *ngFor="let item of build.items" [item]="item"></app-card-item>
       </div>

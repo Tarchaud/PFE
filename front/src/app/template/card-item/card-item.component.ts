@@ -26,5 +26,11 @@ export class CardItemComponent {
     return Waktrinser.decodeString(sentence, params, levelItem);
   }
 
+  levelItem(lv : number) : number {
+    if(this.item?.definition.item.baseParameters.itemTypeId === 582 || this.item?.definition.item.baseParameters.itemTypeId === 611){
+      return 50;
+    }
+    return lv;
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 //Models
 import { BuildI } from 'src/app/shared/models/build-i';
@@ -18,7 +18,7 @@ export class BuildComponent {
   param !: string;
 
 
-  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService, public action : ActionService) {
+  constructor(public activeRoute : ActivatedRoute, public buildService : BuildService, public action : ActionService, private route : Router) {
     this.param = this.activeRoute.snapshot.paramMap.get('buildId') || '';
     console.log('params : ', this.param);
     this.action.getAllActions();
@@ -28,6 +28,7 @@ export class BuildComponent {
       },
       error : (err) => {
         console.log(err);
+        this.route.navigate(['/liste-builds']);
       },
       complete : () => {
         console.log('Get build completed');

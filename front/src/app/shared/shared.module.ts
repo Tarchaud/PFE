@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatDividerModule} from '@angular/material/divider';
 
 //Pipes
 import { RarityPipe } from './pipes/rarity.pipe';
@@ -31,6 +33,8 @@ import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
     ItemPipe,
     SentenceCostPipe,
     CostFiilterPipe,
+    DragDropModule,
+    MatDividerModule,
     MatSliderModule,
     FormsModule,
     HttpClientModule,
