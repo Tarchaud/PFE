@@ -10,7 +10,7 @@ public class EquipmentItemType {
     
     public static class EquipmentItemTypeDefinition {
         public int idEITDefinition;
-        public String parentId;
+        public int parentId;
         public String[] equipmentPositions;
         public String[] equipmentDisabledPositions;
         public boolean isRecyclable;

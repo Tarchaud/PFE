@@ -1,0 +1,29 @@
+<div class="container" *ngIf="build">
+  <div class="box_build">
+    <div class="header_build">
+      <div class="build_infos">
+        <h1>{{ build.name }}</h1>
+        <div>
+          <h3>level : {{ build.level }}</h3>
+          <h3>Coût : {{ build.cost | sentenceCost }}</h3>
+        </div>
+      </div>
+      <div class="card_build_item">
+        <img *ngFor="let item of build.items" [src]="'https://vertylo.github.io/wakassets/items/' + item.definition.item.graphicParameters.gfxId + '.png'" alt="">
+      </div>
+    </div>
+    <hr />
+    <div class="box_items_infos">
+      <div class="box_effects_info">
+        <h4>Liste des effets utilisés pour générer le build : </h4>
+        <ul>
+          <li *ngFor="let e of build.effects"> {{ action.map_actions.get(e)?.definition?.effect }} </li>
+        </ul>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div class="liste_items">
+        <app-card-item *ngFor="let item of build.items" [item]="item"></app-card-item>
+      </div>
+    </div>
+  </div>
+</div>
