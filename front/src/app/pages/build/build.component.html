@@ -9,7 +9,12 @@
         </div>
       </div>
       <div class="card_build_item">
-        <img *ngFor="let item of build.items" [src]="'https://vertylo.github.io/wakassets/items/' + item.definition.item.graphicParameters.gfxId + '.png'" alt="">
+        <span *ngFor="let item of build.items">
+          <img *ngIf="item && item.definition && item.definition.item && item.definition.item.graphicParameters && item.definition.item.graphicParameters.gfxId"
+               [src]="'https://vertylo.github.io/wakassets/items/' + item.definition.item.graphicParameters.gfxId + '.png'"
+               [alt]="item.title.fr">
+        </span>
+
       </div>
     </div>
     <hr />
