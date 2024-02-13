@@ -11,11 +11,13 @@ docker-compose up
 docker-compose down
 
 # To do
-- cas particulier de la position ['LEFT_HAND', 'RIGHT_HAND'] qui comporte deux positions en une seule
-
+back :
 - cas particulier des reliques / épiques
-
 - cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments -> la séparer en 3
+- connexion / inscription
 
+front:
+- affichage des stats
+- pouvoir être plus flexible sur les filtres
 - firebase pour avoir déjà des builds?
 - connexion / inscription
