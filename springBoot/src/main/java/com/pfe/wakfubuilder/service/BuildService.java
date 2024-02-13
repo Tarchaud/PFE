@@ -71,13 +71,13 @@ public class BuildService {
         List<Integer> rarities;
         switch (cost) {
             case low:
-                rarities = Arrays.asList(1, 2, 3);
+                rarities = Arrays.asList(1, 2);
                 break;
             case medium:
-                rarities = Collections.singletonList(3);
+                rarities = Arrays.asList(1, 2, 3);
                 break;
             case high:
-                rarities = Arrays.asList(4, 5, 6, 7);
+                rarities = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid cost: " + cost);
