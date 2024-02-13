@@ -5,7 +5,7 @@
     <p>{{item.definition.item.baseParameters.rarity | rarity }} | Lv.{{levelItem(item.definition.item.level)}}</p>
   </div>
   <div class="card_img">
-    <img [src]="'https://vertylo.github.io/wakassets/items/' + item.definition.item.graphicParameters.gfxId + '.png'" alt="">
+    <img [src]="'https://vertylo.github.io/wakassets/items/' + item.definition.item.graphicParameters.gfxId + '.png'" [alt]="item.title.fr">
   </div>
   <table *ngIf="item.definition.equipEffects">
     <tbody>
