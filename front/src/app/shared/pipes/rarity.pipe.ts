@@ -12,7 +12,7 @@ export class RarityPipe implements PipeTransform {
     4: "Légendaire",
     5: "Relique",
     6: "Souvenir",
-    7: "Epique"
+    7: "Épique"
   };
 
   transform(rarity: number): string {

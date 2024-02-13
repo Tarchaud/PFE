@@ -77,7 +77,7 @@ public class BuildService {
                 rarities = Collections.singletonList(3);
                 break;
             case high:
-                rarities = Arrays.asList(4, 5, 6);
+                rarities = Arrays.asList(4, 5, 6, 7);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid cost: " + cost);

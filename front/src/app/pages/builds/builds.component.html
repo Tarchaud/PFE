@@ -4,33 +4,33 @@
 
     <div class="level_build">
       <fieldset>
-        <legend>Level</legend>
+        <legend>Niveau</legend>
         <mat-slider min="0" max="230" step="1" showTickMarks discrete>
           <input  matSliderStartThumb [(ngModel)]="levelFilter[0]" name="sliderStart">
           <input  matSliderEndThumb [(ngModel)]="levelFilter[1]" name="sliderEnd">
         </mat-slider>
         <div>
-          level minimum: {{ levelFilter[0] }}
+          Niveau minimum : {{ levelFilter[0] }}
         </div>
         <div>
-          level maximum: {{ levelFilter[1] }}
+          Niveau maximum : {{ levelFilter[1] }}
         </div>
       </fieldset>
     </div>
     <div class="name_build">
       <fieldset>
         <legend>Nom</legend>
-        <input type="text" [(ngModel)]="nameBuild"  placeholder="Recherche un item">
+        <input type="text" [(ngModel)]="nameBuild"  placeholder="Rechercher un item">
       </fieldset>
     </div>
     <div class="cost_build">
       <fieldset>
         <legend>Coût du Build</legend>
         <select name="classBuild" [(ngModel)]="costFilter" required>
-          <option value="all">Tout les coûts</option>
+          <option value="all">Tous les coûts</option>
           <option value="low">Bas</option>
           <option value="medium">Moyen</option>
-          <option value="high">Elevé</option>
+          <option value="high">Élevé</option>
         </select>
       </fieldset>
     </div>
@@ -57,9 +57,9 @@
         <div class="card_build_header" [routerLink]="'/build/' + b.id">
           <h3>{{ b.name }} </h3>
           <div>
-            <h3>level : {{ b.level }}</h3>
+            <h3>Niveau : {{ b.level }}</h3>
             <h3>Coût : {{ b.cost | sentenceCost}}</h3>
-            <h3>Effects : {{ b.effects }}</h3>
+            <h3>Effets : {{ b.effects }}</h3>
           </div>
         </div>
         <hr />
