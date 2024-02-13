@@ -13,23 +13,23 @@
 
     <div class="level_items">
       <fieldset>
-        <legend>Level</legend>
+        <legend>Niveau</legend>
         <mat-slider min="0" max="230" step="1" showTickMarks discrete>
           <input  matSliderStartThumb [(ngModel)]="levelFilter[0]" name="sliderStart">
           <input  matSliderEndThumb [(ngModel)]="levelFilter[1]" name="sliderEnd">
         </mat-slider>
         <div>
-          level minimum: {{ levelFilter[0] }}
+          Niveau minimum : {{ levelFilter[0] }}
         </div>
         <div>
-          level maximum: {{ levelFilter[1] }}
+          Niveau maximum : {{ levelFilter[1] }}
         </div>
       </fieldset>
     </div>
     <div class="name_items">
       <fieldset>
         <legend>Nom</legend>
-        <input type="text" [(ngModel)]="nameItem"  placeholder="Recherche un item">
+        <input type="text" [(ngModel)]="nameItem"  placeholder="Rechercher un item">
       </fieldset>
     </div>
 

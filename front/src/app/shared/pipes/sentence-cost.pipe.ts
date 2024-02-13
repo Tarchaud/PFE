@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SentenceCostPipe implements PipeTransform {
   map_cost : {[key : string] : string} = {
-    "low" : "bas",
-    "medium" : "moyen",
-    "high" : "élevé"
+    "low" : "Bas",
+    "medium" : "Moyen",
+    "high" : "Élevé"
   }
 
   transform(sentence : string): string {
