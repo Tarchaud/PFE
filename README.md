@@ -12,7 +12,8 @@ docker-compose down
 
 # To do
 - cas particulier de la position ['LEFT_HAND', 'RIGHT_HAND'] qui comporte deux positions en une seule
-& le cas des armes à deux mains, qui disable la deuxième arme
+
+- cas particulier des reliques / épiques
 
 - cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments -> la séparer en 3
 
