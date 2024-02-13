@@ -10,7 +10,7 @@ import { ActionI } from '../models/action-i';
 export class ActionService {
   public arr_actions : ActionI[] = [];
   public map_actions = new Map<number, ActionI>();
-  public keyEffects : string[] = ["Gain", "Boost", "Soin", "Perte", "Dommage"]
+  public keyEffects : string[] = ["Gain", "Boost", "Soin", "Dommage"]
   public map_Effects !: Map<string, ActionI[]>;
   public arr_actions_filtered : ActionI[] = [];
 
