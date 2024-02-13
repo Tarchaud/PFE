@@ -48,7 +48,7 @@
     </div>
     <hr />
     <form (submit)="prioEffectStep()">
-      <h1>Mettez deans l'orde des priorité des effects souhaité</h1>
+      <h1>Mettez dans l'orde des priorité des effects souhaité</h1>
       <h3>Du plus important au moins important</h3>
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let effect of effectBuild; let i = index" class="example-box" cdkDrag>{{ i + 1 }} - {{ action.map_actions.get(effect)?.definition?.effect }} ({{ action.map_actions.get(effect)?.definition?.idActionDefinition }})</div>

@@ -1,4 +1,4 @@
-FROM node:20.9.0-alpine3.14
+FROM node:20.9.0-alpine
 
 WORKDIR /app
 
@@ -6,4 +6,4 @@ COPY . .
 
 RUN npm install
 
-RUN ["npm", "run", "start_docker"]
+CMD ["npm", "run", "start_docker"]
