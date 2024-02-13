@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSliderModule } from '@angular/material/slider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
 
 //Pipes
 import { RarityPipe } from './pipes/rarity.pipe';
@@ -15,6 +16,7 @@ import { LevelPipe } from './pipes/level.pipe';
 import { ItemPipe } from './pipes/item.pipe';
 import { SentenceCostPipe } from './pipes/sentence-cost.pipe';
 import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
+import { EffectFilterPipe } from './pipes/effect-filter.pipe';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
     LevelPipe,
     ItemPipe,
     SentenceCostPipe,
-    CostFiilterPipe
+    CostFiilterPipe,
+    EffectFilterPipe
   ],
   exports: [
     RarityPipe,
@@ -33,7 +36,9 @@ import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
     ItemPipe,
     SentenceCostPipe,
     CostFiilterPipe,
+    EffectFilterPipe,
     DragDropModule,
+    MatSelectModule,
     MatDividerModule,
     MatSliderModule,
     FormsModule,
@@ -41,6 +46,8 @@ import { CostFiilterPipe } from './pipes/cost-fiilter.pipe';
   ],
   imports: [
     CommonModule,
+    MatSelectModule,
+    MatDividerModule,
     MatSliderModule,
     FormsModule,
     HttpClientModule,

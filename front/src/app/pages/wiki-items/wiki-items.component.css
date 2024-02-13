@@ -60,3 +60,8 @@ input[type="text"]{
   padding: 10px 20px;
 }
 
+
+mat-select {
+  border: solid 1px #ccc;
+  margin: 10px 0;
+}

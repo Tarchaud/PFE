@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="box_form">
+  <div class="box_form" *ngIf="step == 0">
     <form (submit)="createBuild()">
       <button type="submit">Crée mon build</button>
       <fieldset>
@@ -39,4 +39,21 @@
     </form>
   </div>
 
+  <div class="box_form" *ngIf="step == 1">
+    <div class="box_rappel">
+      <h1>Rappel</h1>
+      <p>Nom : {{ nameBuild }}</p>
+      <p>Coût : {{ costBuild }}</p>
+      <p>Niveau : {{ levelBuild }}</p>
+    </div>
+    <hr />
+    <form (submit)="prioEffectStep()">
+      <h1>Mettez deans l'orde des priorité des effects souhaité</h1>
+      <h3>Du plus important au moins important</h3>
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let effect of effectBuild; let i = index" class="example-box" cdkDrag>{{ i + 1 }} - {{ action.map_actions.get(effect)?.definition?.effect }} ({{ action.map_actions.get(effect)?.definition?.idActionDefinition }})</div>
+      </div>
+      <button type="submit">Crée mon build</button>
+    </form>
+  </div>
 </div>

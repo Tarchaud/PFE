@@ -35,14 +35,25 @@
       </fieldset>
     </div>
 
-
+    <div class="effects_filter">
+      <fieldset>
+        <legend>Effets</legend>
+        <mat-select [(ngModel)]="effectsFilter" multiple>
+          <mat-select-trigger>
+            {{effectsFilter.length >= 1 ? effectsFilter.length + ' effects' : 'Aucun'}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let effect of actions.arr_actions_filtered" [value]="effect.definition.idActionDefinition">{{effect.definition.effect}}</mat-option>
+        </mat-select>
+        <button (click)="resetEffectFilter()">Effacer les filtres des effets</button>
+      </fieldset>
+    </div>
 
   </div>
 
 
   <div class="div_liste">
     <div class="liste_builds" *ngIf="builds.arr_builds.length > 0" (scroll)="onScroll($event)">
-      <div class="card_build" *ngFor="let b of (builds.arr_builds | name:nameBuild | level:levelFilter[0]:levelFilter[1] | costFiilter:costFilter) | slice:0:toShow">
+      <div class="card_build" *ngFor="let b of (builds.arr_builds | name:nameBuild | level:levelFilter[0]:levelFilter[1] | costFiilter:costFilter | effectFilter: effectsFilter) | slice:0:toShow">
         <div class="card_build_header" [routerLink]="'/build/' + b.id">
           <h3>{{ b.name }} </h3>
           <div>

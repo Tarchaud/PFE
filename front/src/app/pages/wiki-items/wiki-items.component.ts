@@ -13,6 +13,7 @@ export class WikiItemsComponent {
   levelFilter: number[] = [0, 230];
   toShow: number = 20;
   nameItem : string = '';
+  effectsFilter : number[] = [];
 
   constructor(public items : ItemService, public actions : ActionService, public equipementType : EquipementItemTypeService, private elementRef: ElementRef) { }
 
@@ -53,6 +54,10 @@ export class WikiItemsComponent {
       console.log('Scroll down detected!');
       this.toShow += 20;
     }
+  }
+
+  resetEffectFilter() {
+    this.effectsFilter = [];
   }
 
 }

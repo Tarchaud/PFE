@@ -33,14 +33,25 @@
       </fieldset>
     </div>
 
-
+    <div class="effects_filter">
+      <fieldset>
+        <legend>Effets</legend>
+        <mat-select [(ngModel)]="effectsFilter" multiple>
+          <mat-select-trigger>
+            {{effectsFilter.length >= 1 ? effectsFilter.length + ' effects' : 'Aucun'}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let effect of actions.arr_actions_filtered" [value]="effect.definition.idActionDefinition">{{effect.definition.effect}}</mat-option>
+        </mat-select>
+        <button (click)="resetEffectFilter()">Effacer les filtres des effets</button>
+      </fieldset>
+    </div>
 
   </div>
 
 
   <div class="div_liste">
     <div class="liste_items" *ngIf="items.arr_items.length > 0" (scroll)="onScroll($event)">
-      <app-card-item *ngFor="let i of (items.arr_items | name:nameItem | level:levelFilter[0]:levelFilter[1]) | slice:0:toShow" [item]="i"></app-card-item>
+      <app-card-item *ngFor="let i of (items.arr_items | name:nameItem | level:levelFilter[0]:levelFilter[1] | effectFilter:effectsFilter) | slice:0:toShow" [item]="i"></app-card-item>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ export class ActionService {
   public map_actions = new Map<number, ActionI>();
   public keyEffects : string[] = ["Gain", "Boost", "Soin", "Perte", "Dommage"]
   public map_Effects !: Map<string, ActionI[]>;
+  public arr_actions_filtered : ActionI[] = [];
 
 
   constructor(private http : HttpClient) { }
@@ -23,6 +24,7 @@ export class ActionService {
         this.arr_actions = data;
         this.mapActions();
         this.mapEffects();
+        this.arr_actions_filtered = this.filterEffects(this.arr_actions);
       },
       error : (err) => {
         console.log(err);

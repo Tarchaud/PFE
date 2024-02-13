@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActionService } from 'src/app/shared/services/action.service';
 import { BuildService } from 'src/app/shared/services/build.service';
 
 @Component({
@@ -11,10 +12,12 @@ export class BuildsComponent {
   toShow: number = 20;
   nameBuild : string = '';
   costFilter : string = 'all';
+  effectsFilter : number[] = [];
 
-  constructor(public builds : BuildService) { }
+  constructor(public builds : BuildService, public actions : ActionService) { }
 
   ngOnInit() {
+    this.actions.getAllActions();
     this.builds.getAllbuilds();
   }
 
@@ -26,6 +29,10 @@ export class BuildsComponent {
       console.log('Scroll down detected!');
       this.toShow += 20;
     }
+  }
+
+  resetEffectFilter() {
+    this.effectsFilter = [];
   }
 
 }
