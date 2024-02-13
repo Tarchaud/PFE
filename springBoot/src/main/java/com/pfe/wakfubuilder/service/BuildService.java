@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
@@ -107,75 +109,75 @@ public class BuildService {
     private List<Item> selectItems(List<Item> filteredItems, Integer level, List<Integer> effects) {
 
         // Hashmap avec les positions possibles des items en clés
-        HashMap<List<String>, Item> equipmentPositionsMap = new HashMap<>();
+        Map<String, Item> equipmentPositionsMap = new LinkedHashMap<>();
 
-        equipmentPositionsMap.put(Collections.singletonList("PET"), null);
-        equipmentPositionsMap.put(new ArrayList<>(), null); // equipmentPosition des montures = []
-        equipmentPositionsMap.put(Collections.singletonList("FIRST_WEAPON"), null);
-        equipmentPositionsMap.put(Collections.singletonList("SECOND_WEAPON"), null);
-        equipmentPositionsMap.put(Arrays.asList("LEFT_HAND", "RIGHT_HAND"), null);
-
-        equipmentPositionsMap.put(Collections.singletonList("BACK"), null);
-        equipmentPositionsMap.put(Collections.singletonList("LEGS"), null);
-        equipmentPositionsMap.put(Collections.singletonList("NECK"), null);
-        equipmentPositionsMap.put(Collections.singletonList("BELT"), null);
-        equipmentPositionsMap.put(Collections.singletonList("HEAD"), null);
-        equipmentPositionsMap.put(Collections.singletonList("CHEST"), null);
-        equipmentPositionsMap.put(Collections.singletonList("SHOULDERS"), null);
-        equipmentPositionsMap.put(Collections.singletonList("ACCESSORY"), null);
+        equipmentPositionsMap.put("PET", null);
+        equipmentPositionsMap.put("", null); // equipmentPosition des montures = []
+        equipmentPositionsMap.put("FIRST_WEAPON", null);
+        equipmentPositionsMap.put("SECOND_WEAPON", null);
+        equipmentPositionsMap.put("LEFT_HAND", null);
+        equipmentPositionsMap.put("RIGHT_HAND", null);
+        
+        equipmentPositionsMap.put("BACK", null);
+        equipmentPositionsMap.put("LEGS", null);
+        equipmentPositionsMap.put("NECK", null);
+        equipmentPositionsMap.put("BELT", null);
+        equipmentPositionsMap.put("HEAD", null);
+        equipmentPositionsMap.put("CHEST", null);
+        equipmentPositionsMap.put("SHOULDERS", null);
+        equipmentPositionsMap.put("ACCESSORY", null);
     
         // On s'occupera de ces cas particuliers à part
-
-        List<List<String>> specialPositions = Arrays.asList(
-            Collections.singletonList("PET"),
-            Collections.emptyList(),
-            Collections.singletonList("FIRST_WEAPON"),
-            Collections.singletonList("SECOND_WEAPON"),
-            Arrays.asList("LEFT_HAND", "RIGHT_HAND")
+        List<String> specialPositions = Arrays.asList(
+            "PET",
+            "",
+            "FIRST_WEAPON",
+            "SECOND_WEAPON",
+            "LEFT_HAND",
+            "RIGHT_HAND"
         );
 
         // On parcourt les equipmentPositions
-        for (List<String> equipmentPosition : equipmentPositionsMap.keySet()) {
+        for (String equipmentPosition : equipmentPositionsMap.keySet()) {
 
             // Si l'equipmentPosition est un cas particulier
             if (specialPositions.contains(equipmentPosition)) {
 
                 // Familier
-                if (equipmentPosition.equals(Collections.singletonList("PET"))) {
-                    List<Item> pets = itemRepository.findByEquipmentItemTypeIds(Collections.singletonList(582));
-                    setOptimalPet(filteredItems, level, effects, equipmentPositionsMap, pets);
+                if (equipmentPosition.equals("PET")) {
+                    setOptimalPet(filteredItems, level, effects, equipmentPositionsMap);
                 } 
                 // Monture
-                else if (equipmentPosition.isEmpty()) {
+                else if (equipmentPosition.equals("")) {
                     setOptimalMount(filteredItems, level, equipmentPositionsMap);
                 } 
                 // Armes
-                else if (equipmentPosition.equals(Collections.singletonList("FIRST_WEAPON"))) {
+                else if (equipmentPosition.equals("FIRST_WEAPON")) {
                     setOptimalWeapon(filteredItems, effects, equipmentPositionsMap);
                 }
-                else if (equipmentPosition.equals(Collections.singletonList("SECOND_WEAPON"))) {
+                else if (equipmentPosition.equals("SECOND_WEAPON")) {
                     continue;
                 }
                 // Anneaux
-                else if (equipmentPosition.equals(Arrays.asList("LEFT_HAND", "RIGHT_HAND"))) {
-                    setOptimalRings(filteredItems, effects, equipmentPositionsMap);
+                else if (equipmentPosition.equals("LEFT_HAND")) {
+                    setLeftRing(filteredItems, effects, equipmentPositionsMap);
+                }
+                else if (equipmentPosition.equals("RIGHT_HAND")) {
+                    setRightRing(filteredItems, effects, equipmentPositionsMap);
                 }
 
             } else {
 
                 // On récupère tous les items qui ont l'equipmentPosition courante
                 List<Item> itemsWithGivenEquipmentPosition = filteredItems.stream()
-                    .filter(item -> equipmentPosition.equals(Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()))))
+                    .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains(equipmentPosition))
                     .collect(Collectors.toList());
             
-                // On récupère les items qui ont le plus d'effets demandés
-                List<Item> itemsWithTheMostEffects = itemService.getItemsWithTheMostEffects(itemsWithGivenEquipmentPosition, effects);
-                    
                 // On ajoute à la hashmap l'item optimal pour l'equipmentPosition courante
-                equipmentPositionsMap.put(equipmentPosition, getOptimalItem(itemsWithTheMostEffects, effects));
+                equipmentPositionsMap.put(equipmentPosition, getOptimalItem(itemsWithGivenEquipmentPosition, effects));
                 
                 // On supprime de la liste des items filtrés tous ceux qui ont l'equipmentPosition courante
-                filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(equipmentPosition));
+                filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains(equipmentPosition));
      
                 }
         }
@@ -183,48 +185,52 @@ public class BuildService {
         return new ArrayList<>(equipmentPositionsMap.values());
     }
 
-    private void setOptimalPet(List<Item> filteredItems, Integer level, List<Integer> effects, HashMap<List<String>, Item> equipmentPositionsMap, List<Item> pets) {
+    private void setOptimalPet(List<Item> filteredItems, Integer level, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
         
-        // Si le level n'est pas suffisant
-        if (level < 36) {
-            // Ajouter le gelutin comme familier de base à l'emplacement des familiers 
-            Item gelutin = itemRepository.findById(12237);
-            equipmentPositionsMap.put(Collections.singletonList("PET"), gelutin);
-
-        }
-        // Sinon on peut mettre un meilleur familier de base
-        else {
-            // Ajouter le peroucan comme familier de base à l'emplacement des familiers 
-            Item peroucan = itemRepository.findById(14887);
-            equipmentPositionsMap.put(Collections.singletonList("PET"), peroucan);
-        }
-
         // On supprime tous les familiers de liste des items filtrés au cas où il y en aurait
-        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Collections.singletonList("PET")));
+        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("PET"));
 
-        // Même principe que pour les items, mais pas sur la même liste (ici pets au lieu de filteredItems)
-        List<Item> petsWithTheMostEffects = itemService.getItemsWithTheMostEffects(pets, effects);
+        // Liste des familiers du jeu
+        // On utilise cette liste car les familier sont éliminés quasi systématiquement par les filtres
+        List<Item> pets = itemRepository.findByEquipmentItemTypeIds(Collections.singletonList(582));
 
-        // On enregistre le familier optimal pour l'emplacement des familiers
-        // Si petsWithTheMostEffects est vide, ce sera un familier de base
-        equipmentPositionsMap.put(Collections.singletonList("PET"), getOptimalItem(petsWithTheMostEffects, effects));
+        // S'il n'existe pas de familier avec au moins un effet demandé
+        if (itemService.getItemsWithTheMostEffects(pets, effects).isEmpty()) {
+            // Si le level n'est pas suffisant
+            if (level < 36) {
+                // Ajouter le gelutin comme familier de base à l'emplacement des familiers 
+                Item gelutin = itemRepository.findById(12237);
+                equipmentPositionsMap.put("PET", gelutin);
+
+            }
+            // Sinon on peut mettre un meilleur familier de base
+            else {
+                // Ajouter le peroucan comme familier de base à l'emplacement des familiers 
+                Item peroucan = itemRepository.findById(14887);
+                equipmentPositionsMap.put("PET", peroucan);
+            }
+        } else {
+            // On enregistre le familier optimal pour l'emplacement des familiers
+            equipmentPositionsMap.put("PET", getOptimalItem(pets, effects));
+        }
     }
 
-    private void setOptimalMount(List<Item> filteredItems, Integer level, HashMap<List<String>, Item> equipmentPositionsMap) {
+    private void setOptimalMount(List<Item> filteredItems, Integer level, Map<String, Item> equipmentPositionsMap) {
+
+        // On peut directement supprimer toutes les montures car elles offrent toutes le même bonus
+        // Pareil que les familiers, les montures sont éliminées quasi systématiquement par les filtres
+        filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
 
         // Si le level est suffisant
         if (level >= 35) {
             // Ajouter la dragodinde comme item de base à l'emplacement des montures
             Item dragodinde = itemRepository.findById(18682);
-            equipmentPositionsMap.put(new ArrayList<>(), dragodinde);
+            equipmentPositionsMap.put("", dragodinde);
         }
-
-        // On peut directement supprimer toutes les montures car elles offrent toutes le même bonus
-        filteredItems.removeIf(item -> equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId()).length == 0);
 
     }
 
-    private void setOptimalWeapon(List<Item> filteredItems, List<Integer> effects, HashMap<List<String>, Item> equipmentPositionsMap) {
+    private void setOptimalWeapon(List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
 
         // En bdd : les armes à deux mains sont appelées "FIRST_WEAPON", et elles ont l'equipmentPosition "SECOND_WEAPON" désactivée
         // Il y a besoin d'un traitement particulier pour savoir si une arme à une main + une dague / un bouclier est meilleure qu'une arme à deux mains
@@ -240,15 +246,17 @@ public class BuildService {
         // On récupère la somme de l'arme à une main sélectionnée
         float sumForOneHandedWeapon = 0.0f;
 
-        for (DefinitionEffect definitionEffect : oneHandedWeaponSelected.getDefinitionsEffect()) {
-            if (effects.contains(definitionEffect.getActionId())) {
-                sumForOneHandedWeapon += definitionEffect.getParams()[0];
+        if (oneHandedWeaponSelected != null) {
+            for (DefinitionEffect definitionEffect : oneHandedWeaponSelected.getDefinitionsEffect()) {
+                if (effects.contains(definitionEffect.getActionId())) {
+                    sumForOneHandedWeapon += definitionEffect.getParams()[0];
+                }
             }
         }
 
         // Les dagues et les boucliers
         List<Item> secondWeapons = filteredItems.stream()
-            .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Collections.singletonList("SECOND_WEAPON")))
+            .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains("SECOND_WEAPON"))
             .collect(Collectors.toList());
 
         Item secondWeaponSelected = getOptimalItem(secondWeapons, effects);
@@ -256,9 +264,11 @@ public class BuildService {
         // On récupère la somme de la seconde arme sélectionnée
         float sumForSecondWeapon = 0.0f;
 
-        for (DefinitionEffect definitionEffect : secondWeaponSelected.getDefinitionsEffect()) {
-            if (effects.contains(definitionEffect.getActionId())) {
-                sumForSecondWeapon += definitionEffect.getParams()[0];
+        if (secondWeaponSelected != null) {
+            for (DefinitionEffect definitionEffect : secondWeaponSelected.getDefinitionsEffect()) {
+                if (effects.contains(definitionEffect.getActionId())) {
+                    sumForSecondWeapon += definitionEffect.getParams()[0];
+                }
             }
         }
 
@@ -276,39 +286,67 @@ public class BuildService {
 
         float sumForTwoHandedWeapon = 0.0f;
 
-        for (DefinitionEffect definitionEffect : twoHandedWeaponSelected.getDefinitionsEffect()) {
-            if (effects.contains(definitionEffect.getActionId())) {
-                sumForTwoHandedWeapon += definitionEffect.getParams()[0];
+        if (twoHandedWeaponSelected != null) {
+            for (DefinitionEffect definitionEffect : twoHandedWeaponSelected.getDefinitionsEffect()) {
+                if (effects.contains(definitionEffect.getActionId())) {
+                    sumForTwoHandedWeapon += definitionEffect.getParams()[0];
+                }
             }
         }
 
         // Si la somme des deux armes est supérieure à la somme de l'arme à deux mains
         if (sumOfBothWeapons > sumForTwoHandedWeapon) {
             // On ajoute à la hashmap l'arme à une main sélectionnée
-            equipmentPositionsMap.put(Collections.singletonList("FIRST_WEAPON"), oneHandedWeaponSelected);
+            equipmentPositionsMap.put("FIRST_WEAPON", oneHandedWeaponSelected);
             // On ajoute à la hashmap la seconde arme sélectionnée
-            equipmentPositionsMap.put(Collections.singletonList("SECOND_WEAPON"), secondWeaponSelected);
+            equipmentPositionsMap.put("SECOND_WEAPON", secondWeaponSelected);
         } else {
             // On ajoute à la hashmap l'arme à deux mains sélectionnée
-            equipmentPositionsMap.put(Collections.singletonList("FIRST_WEAPON"), twoHandedWeaponSelected);
+            equipmentPositionsMap.put("FIRST_WEAPON", twoHandedWeaponSelected);
             // L'item sélectionné pour l'emplacement "SECOND_WEAPON" est null
         }
         
         // On supprime les armes de la liste des items filtrés
-        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Collections.singletonList("FIRST_WEAPON")));
-        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Collections.singletonList("SECOND_WEAPON")));
+        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("FIRST_WEAPON"));
+        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("SECOND_WEAPON"));
     }
 
-    private void setOptimalRings(List<Item> filteredItems, List<Integer> effects, HashMap<List<String>, Item> equipmentPositionsMap) {
+    private void setLeftRing (List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+
+        // On récupère les anneaux
+        // Dans la db, les anneaux sont à l'equipmentPosition ["LEFT_HAND", "RIGHT_HAND"]
         List<Item> rings = filteredItems.stream()
             .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Arrays.asList("LEFT_HAND", "RIGHT_HAND")))
             .collect(Collectors.toList());
-        List<Item> ringsWithTheMostEffects = itemService.getItemsWithTheMostEffects(rings, effects);
-        equipmentPositionsMap.put(Arrays.asList("LEFT_HAND", "RIGHT_HAND"), getOptimalItem(ringsWithTheMostEffects, effects));
+            
+        // On récupère le meilleur anneau
+        Item leftRingSelected = getOptimalItem(rings, effects);
+
+        // On ajoute à la hashmap l'anneau sélectionné
+        equipmentPositionsMap.put("LEFT_HAND", leftRingSelected);
+
+        // On le retire de la liste des items filtrés pour récupérer le deuxième meilleur anneau ensuite
+        filteredItems.remove(leftRingSelected);
+    }
+
+    private void setRightRing(List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+        
+        List<Item> rings = filteredItems.stream()
+            .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Arrays.asList("LEFT_HAND", "RIGHT_HAND")))
+            .collect(Collectors.toList());
+
+        // On est obligés de faire un traitement particulier aussi ici
+        // Car RIGHT_HAND ne correspond pas à une position en db
+        equipmentPositionsMap.put("RIGHT_HAND", getOptimalItem(rings, effects));
+        
+        // On retire tous les anneaux restants de la liste des items filtrés
         filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Arrays.asList("LEFT_HAND", "RIGHT_HAND")));
+
     }
 
     private Item getOptimalItem(List<Item> items, List<Integer> effects) {
+
+        List<Item> itemsWithTheMostEffects = itemService.getItemsWithTheMostEffects(items, effects);
 
         // Somme pour le set d'items
         float sumForSet = 0.0f;
@@ -320,7 +358,7 @@ public class BuildService {
         Item itemSelected = null;
 
         // On parcourt le set d'items
-        for (Item item : items) {
+        for (Item item : itemsWithTheMostEffects) {
 
             // On réinitialise la somme pour l'item courant
             sumForItem = 0.0f;
