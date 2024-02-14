@@ -24,6 +24,10 @@ export class BuildComponent {
     this.action.getAllActions();
     this.buildService.getBuildById(this.param).subscribe({
       next : (data : BuildI) => {
+        if (data == null) {
+          console.log('Build not found');
+          this.route.navigate(['/liste-builds']);
+        }
         this.build = data;
       },
       error : (err) => {
@@ -39,5 +43,8 @@ export class BuildComponent {
   ngOnInit(): void {
   }
 
+  getInt(value : string) {
+    return parseInt(value);
+  }
 
 }

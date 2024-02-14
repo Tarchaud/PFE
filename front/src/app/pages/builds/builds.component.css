@@ -50,7 +50,7 @@ input[type="text"]{
 /* Partie Card_build */
 .card_build {
   margin : 10px 0;
-  width: 60vw;
+  width: fit-content;
   height: fit-content;
   padding: 10px 10px;
   border: 1px solid #979797;

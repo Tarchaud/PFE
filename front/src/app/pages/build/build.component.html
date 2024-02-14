@@ -22,7 +22,7 @@
       <div class="box_effects_info">
         <h4>Liste des effets utilisés pour générer le build : </h4>
         <ul>
-          <li *ngFor="let e of build.effects"> {{ action.map_actions.get(e)?.definition?.effect }} </li>
+            <li *ngFor="let e of build.effects | keyvalue"> {{ action.map_actions.get(getInt(e.key))?.definition?.effect }} </li>
         </ul>
       </div>
       <mat-divider [vertical]="true"></mat-divider>

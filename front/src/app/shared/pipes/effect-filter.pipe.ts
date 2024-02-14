@@ -26,7 +26,7 @@ export class EffectFilterPipe implements PipeTransform {
     }else if (arr.length > 0 && 'effects' in arr[0]) {
       return arr.filter((b : BuildI) => {
         for (let effect of effectsFilter) {
-          if (b.effects.includes(effect)) {
+          if (effect in b.effects) {
             return true;
           }
         }

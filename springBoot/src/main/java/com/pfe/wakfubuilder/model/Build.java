@@ -1,6 +1,6 @@
 package com.pfe.wakfubuilder.model;
 
-import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -19,7 +19,7 @@ public class Build {
     private int level;
     private Cost cost;
     private Item[] items;
-    private List<Integer> effects;
+    private Map<Integer, Integer> effects;
 
     public Build () {
         this.items = new Item[15];
@@ -72,11 +72,11 @@ public class Build {
         this.items = items;
     }
 
-    public List<Integer> getEffects() {
+    public Map<Integer,Integer> getEffects() {
         return effects;
     }
 
-    public void setEffects(List<Integer> effects) {
+    public void setEffects(Map<Integer, Integer> effects) {
         this.effects = effects;
     }
 }

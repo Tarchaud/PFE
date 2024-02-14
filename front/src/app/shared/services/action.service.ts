@@ -43,8 +43,6 @@ export class ActionService {
 
   mapEffects() {
     let filteredActions = this.filterEffects(this.arr_actions);
-    console.log(filteredActions);
-
     this.map_Effects = filteredActions.reduce((map, action) => {
         this.keyEffects.forEach(effect => {
             if (action.definition.effect.search(effect + " :") !== -1) {
@@ -55,7 +53,6 @@ export class ActionService {
         });
         return map;
     }, new Map<string, ActionI[]>());
-    console.log(this.map_Effects);
   }
 
   filterEffects(arr_actions : ActionI[] ) : ActionI[] {
