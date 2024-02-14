@@ -6,5 +6,5 @@ export interface BuildI {
   level : number;
   cost : string;
   items : ItemI[];
-  effects : number[];
+  effects : { [key: number]: number };
 }

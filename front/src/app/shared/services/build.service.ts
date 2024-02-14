@@ -12,7 +12,6 @@ export class BuildService {
 
   constructor(private http : HttpClient) { }
 
-  //TODO : link to the backend
   getAllbuilds() {
     return this.http.get<BuildI[]>('http://localhost:8080/builds').subscribe({
       next : (data : BuildI[]) => {
@@ -27,14 +26,12 @@ export class BuildService {
     });
   }
 
-  //TODO : link to the backend
   getBuildById(id : string) : Observable<BuildI> {
     return this.http.get<BuildI>('http://localhost:8080/build/' + id);
   }
 
 
 
-  //TODO : link to the backend
   createBuild(buildForm : any) : Observable<BuildI>{
     console.log("Build created");
     return this.http.post<BuildI>('http://localhost:8080/generateBuild', buildForm);

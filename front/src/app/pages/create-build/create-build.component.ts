@@ -19,7 +19,7 @@ class buildFormI {
   name : string = "";
   level : number = 100;
   cost : string = "low";
-  effects : number[] = [];
+  effects : { [key: number]: number } = {};
 }
 
 @Component({
@@ -33,7 +33,8 @@ export class CreateBuildComponent {
   effectBuild : number[] = [];
   selectedEffect: { [key: number]: boolean } = {};
   costBuild : string = "low";
-
+  maitriseElement : number = 2;
+  resistanceElement : number = 2;
   step = 0;
 
 
@@ -63,11 +64,24 @@ export class CreateBuildComponent {
       return;
     }
 
+    let effectsMap : { [key: number]: number } = {};
+    this.effectBuild.forEach((effect) => {
+      let param = 0;
+      if (effect == 1068) {
+        param = this.maitriseElement;
+      }
+      if (effect == 1069) {
+        param = this.resistanceElement;
+      }
+      effectsMap[effect] = param;
+    });
+
+
     let buildForm = {
       name : this.nameBuild,
       level : this.levelBuild,
       cost : this.costBuild,
-      effects : this.effectBuild
+      effects : effectsMap
     }
 
     if( this.effectBuild.length == 1){
@@ -82,11 +96,23 @@ export class CreateBuildComponent {
   }
 
   prioEffectStep() {
+    let effectsMap : { [key: number]: number } = {};
+    this.effectBuild.forEach((effect) => {
+      let param = 0;
+      if (effect == 1068) {
+        param = this.maitriseElement;
+      }
+      if (effect == 1069) {
+        param = this.resistanceElement;
+      }
+      effectsMap[effect] = param;
+    });
+
     let buildForm = {
       name : this.nameBuild,
       level : this.levelBuild,
       cost : this.costBuild,
-      effects : this.effectBuild
+      effects : effectsMap
     }
     console.log(buildForm);
 
@@ -102,12 +128,13 @@ export class CreateBuildComponent {
           this.route.navigate(['/build', data.id]);
         },
         error : (err) => {
+          Block.remove('.container');
           console.log(err.message);
           Notify.failure(err.message);
         },
         complete : () => {
-            Block.remove('.container');
-            console.log('Build created');
+          Block.remove('.container');
+          console.log('Build created');
           }
         }
       );
