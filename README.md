@@ -12,11 +12,10 @@ docker-compose down
 
 # To do
 back :
-- cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments -> la séparer en 3
+- get stats
 - connexion / inscription
 
 front:
 - affichage des stats
-- pouvoir être plus flexible sur les filtres
-- firebase pour avoir déjà des builds?
+- pouvoir cliquer sur un item du build
 - connexion / inscription

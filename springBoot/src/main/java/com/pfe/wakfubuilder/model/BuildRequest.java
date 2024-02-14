@@ -1,21 +1,30 @@
 package com.pfe.wakfubuilder.model;
 
-import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class BuildRequest {
     private String name;
     private int level;
     private Build.Cost cost;
-    private List<Integer> effects;
+    private Map<Integer, Integer> effects;
 
     public BuildRequest() {
     }
 
-    public BuildRequest(String name, int level, Build.Cost cost, List<Integer> effects) {
+    public BuildRequest(String name, int level, Build.Cost cost, JSONArray effects) {
         this.name = name;
         this.level = level;
         this.cost = cost;
-        this.effects = effects;
+        this.effects = new LinkedHashMap<Integer, Integer>();
+        for (int i = 0; i < effects.length(); i++) {
+            JSONObject effect = effects.getJSONObject(i);
+            this.effects.put(effect.getInt("id"), effect.getInt("numberOfElements"));
+        }
+
     }
 
     public String getName() {
@@ -30,7 +39,7 @@ public class BuildRequest {
         return cost;
     }
 
-    public List<Integer> getEffects() {
+    public Map<Integer,Integer> getEffects() {
         return effects;
     }
 
@@ -46,7 +55,7 @@ public class BuildRequest {
         this.cost = cost;
     }
 
-    public void setEffects(List<Integer> effects) {
+    public void setEffects(Map<Integer,Integer> effects) {
         this.effects = effects;
     }
 }

@@ -65,30 +65,20 @@ public class BuildService {
         buildRepository.save(build);
     }
 
-    public Build generateBuild(String name, int level, Build.Cost cost, List<Integer> effects) {
+    // Map<Integer, Integer> effects représente des couples id d'effet / nombre d'éléments
+    // car certains effets s'appliquent sur un nombre variable d'éléments
+    public Build generateBuild(String name, int level, Build.Cost cost, Map<Integer, Integer> effects) {
 
         // Récupérer les raretés en fonction du coût
-        List<Integer> rarities;
-        switch (cost) {
-            case low:
-                rarities = Arrays.asList(1, 2);
-                break;
-            case medium:
-                rarities = Arrays.asList(1, 2, 3);
-                break;
-            case high:
-                rarities = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid cost: " + cost);
-        }
+        List<Integer> rarities  = getRarities(cost, new ArrayList<>());
 
         // Filtrer les items en fonction des critères spécifiés
         List<Item> filteredItems;
         if (level <= 15) {
-            filteredItems = itemRepository.findByCriteria(1, level, rarities, effects);
+            // new ArrayList<>(effects.keySet()) permet de récupérer les ids des effets demandés dans une List<Integer>
+            filteredItems = itemRepository.findByCriteria(1, level, rarities, new ArrayList<>(effects.keySet()));
         } else {
-            filteredItems = itemRepository.findByCriteria(level-15, level, rarities, effects);
+            filteredItems = itemRepository.findByCriteria(level-15, level, rarities, new ArrayList<>(effects.keySet()));
         }
 
         // Sélectionne un item pour chaque equipmentPositions possible
@@ -105,13 +95,10 @@ public class BuildService {
         return build;
     }
 
-    private List<Item> selectItems(List<Item> filteredItems, Integer level, List<Integer> effects) {
+    private List<Item> selectItems(List<Item> filteredItems, Integer level, Map<Integer, Integer> effects) {
 
-        // Hashmap avec les positions possibles des items en clés
+        // Hashmap avec les positions possibles des items en tant que clés
         Map<String, Item> equipmentPositionsMap = new LinkedHashMap<>();
-
-        Boolean epicItem = false;
-        Boolean relicItem = false;
 
         equipmentPositionsMap.put("PET", null);
         equipmentPositionsMap.put("", null); // equipmentPosition des montures = []
@@ -139,6 +126,10 @@ public class BuildService {
             "RIGHT_HAND"
         );
 
+        // Permettra de savoir si un item épique ou relique a déjà été sélectionné
+        Boolean epicItem = false;
+        Boolean relicItem = false;
+        
         // On parcourt les equipmentPositions
         for (String equipmentPosition : equipmentPositionsMap.keySet()) {
 
@@ -155,7 +146,7 @@ public class BuildService {
                 } 
                 // Armes
                 else if (equipmentPosition.equals("FIRST_WEAPON")) {
-                    setOptimalWeapon(filteredItems, effects, equipmentPositionsMap);
+                    setOptimalWeapon(filteredItems,  effects, equipmentPositionsMap);
 
                     // Il ne peut y avoir qu'une seule épique et une seule relique par build
                     handleUniqueItems(filteredItems, equipmentPositionsMap, "FIRST_WEAPON", epicItem, relicItem);
@@ -166,11 +157,11 @@ public class BuildService {
                 }
                 // Anneaux
                 else if (equipmentPosition.equals("LEFT_HAND")) {
-                    setLeftRing(filteredItems, effects, equipmentPositionsMap);
+                    setLeftRing(filteredItems,  effects, equipmentPositionsMap);
                     handleUniqueItems(filteredItems, equipmentPositionsMap, "LEFT_HAND", epicItem, relicItem);
                 }
                 else if (equipmentPosition.equals("RIGHT_HAND")) {
-                    setRightRing(filteredItems, effects, equipmentPositionsMap);
+                    setRightRing(filteredItems,  effects, equipmentPositionsMap);
                     handleUniqueItems(filteredItems, equipmentPositionsMap, "RIGHT_HAND", epicItem, relicItem);
                 }
 
@@ -182,7 +173,7 @@ public class BuildService {
                     .collect(Collectors.toList());
             
                 // On ajoute à la hashmap l'item optimal pour l'equipmentPosition courante
-                equipmentPositionsMap.put(equipmentPosition, getOptimalItem(itemsWithGivenEquipmentPosition, effects));
+                equipmentPositionsMap.put(equipmentPosition, getOptimalItem(itemsWithGivenEquipmentPosition,  effects));
 
                 handleUniqueItems(filteredItems, equipmentPositionsMap, equipmentPosition, epicItem, relicItem);
                 
@@ -195,7 +186,7 @@ public class BuildService {
         return new ArrayList<>(equipmentPositionsMap.values());
     }
 
-    private void setOptimalPet(List<Item> filteredItems, Integer level, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+    private void setOptimalPet(List<Item> filteredItems, Integer level, Map<Integer, Integer> effects, Map<String, Item> equipmentPositionsMap) {
         
         // On supprime tous les familiers de liste des items filtrés au cas où il y en aurait
         filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("PET"));
@@ -205,7 +196,7 @@ public class BuildService {
         List<Item> pets = itemRepository.findByEquipmentItemTypeIds(Collections.singletonList(582));
 
         // S'il n'existe pas de familier avec au moins un effet demandé
-        if (itemService.getItemsWithTheMostEffects(pets, effects).isEmpty()) {
+        if (itemService.getItemsWithTheMostEffects(pets, new ArrayList<>(effects.keySet())).isEmpty()) {
             // Si le level n'est pas suffisant
             if (level < 36) {
                 // Ajouter le gelutin comme familier de base à l'emplacement des familiers 
@@ -240,7 +231,7 @@ public class BuildService {
 
     }
 
-    private void setOptimalWeapon(List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+    private void setOptimalWeapon(List<Item> filteredItems, Map<Integer, Integer> effects, Map<String, Item> equipmentPositionsMap) {
 
         // En bdd : les armes à deux mains sont appelées "FIRST_WEAPON", et elles ont l'equipmentPosition "SECOND_WEAPON" désactivée
         // Il y a besoin d'un traitement particulier pour savoir si une arme à une main + une dague / un bouclier est meilleure qu'une arme à deux mains
@@ -258,7 +249,7 @@ public class BuildService {
 
         if (oneHandedWeaponSelected != null) {
             for (DefinitionEffect definitionEffect : oneHandedWeaponSelected.getDefinitionsEffect()) {
-                if (effects.contains(definitionEffect.getActionId())) {
+                if (effects.keySet().contains(definitionEffect.getActionId())) {
                     sumForOneHandedWeapon += definitionEffect.getParams()[0];
                 }
             }
@@ -276,7 +267,7 @@ public class BuildService {
 
         if (secondWeaponSelected != null) {
             for (DefinitionEffect definitionEffect : secondWeaponSelected.getDefinitionsEffect()) {
-                if (effects.contains(definitionEffect.getActionId())) {
+                if (effects.keySet().contains(definitionEffect.getActionId())) {
                     sumForSecondWeapon += definitionEffect.getParams()[0];
                 }
             }
@@ -298,7 +289,7 @@ public class BuildService {
 
         if (twoHandedWeaponSelected != null) {
             for (DefinitionEffect definitionEffect : twoHandedWeaponSelected.getDefinitionsEffect()) {
-                if (effects.contains(definitionEffect.getActionId())) {
+                if (effects.keySet().contains(definitionEffect.getActionId())) {
                     sumForTwoHandedWeapon += definitionEffect.getParams()[0];
                 }
             }
@@ -317,11 +308,11 @@ public class BuildService {
         }
         
         // On supprime les armes de la liste des items filtrés
-        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("FIRST_WEAPON"));
-        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals("SECOND_WEAPON"));
+        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains("FIRST_WEAPON"));
+        filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains("SECOND_WEAPON"));
     }
 
-    private void setLeftRing (List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+    private void setLeftRing (List<Item> filteredItems, Map<Integer, Integer> effects, Map<String, Item> equipmentPositionsMap) {
 
         // On récupère les anneaux
         // Dans la db, les anneaux sont à l'equipmentPosition ["LEFT_HAND", "RIGHT_HAND"]
@@ -335,11 +326,11 @@ public class BuildService {
         // On ajoute à la hashmap l'anneau sélectionné
         equipmentPositionsMap.put("LEFT_HAND", leftRingSelected);
 
-        // On le retire de la liste des items filtrés pour récupérer le deuxième meilleur anneau ensuite
-        filteredItems.remove(leftRingSelected);
+        // On supprime tous les anneaux du même nom dans la liste, car un même anneau apparaît sous différentes raretés
+        filteredItems.removeIf(item -> item.getTitle().getFr().equals(leftRingSelected.getTitle().getFr()));
     }
 
-    private void setRightRing(List<Item> filteredItems, List<Integer> effects, Map<String, Item> equipmentPositionsMap) {
+    private void setRightRing(List<Item> filteredItems, Map<Integer, Integer> effects, Map<String, Item> equipmentPositionsMap) {
         
         List<Item> rings = filteredItems.stream()
             .filter(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).equals(Arrays.asList("LEFT_HAND", "RIGHT_HAND")))
@@ -354,9 +345,9 @@ public class BuildService {
 
     }
 
-    private Item getOptimalItem(List<Item> items, List<Integer> effects) {
+    private Item getOptimalItem(List<Item> items, Map<Integer,Integer> effects) {
 
-        List<Item> itemsWithTheMostEffects = itemService.getItemsWithTheMostEffects(items, effects);
+        List<Item> itemsWithTheMostEffects = itemService.getItemsWithTheMostEffects(items, new ArrayList<>(effects.keySet()));
 
         // Somme pour le set d'items
         float sumForSet = 0.0f;
@@ -379,9 +370,36 @@ public class BuildService {
             for (DefinitionEffect definitionEffect : definitionsEffectOfItem) {
 
                 // Si l'effet courant est dans la liste des effets demandés
-                if (effects.contains(definitionEffect.getActionId())) {
-                    // On ajoute la valeur de l'effet à la somme pour l'item courant
-                    sumForItem += definitionEffect.getParams()[0];
+                if (effects.keySet().contains(definitionEffect.getActionId())) {
+
+                   // On vérifie le nombre d'éléments associé à l'effet demandé courant
+                   switch (effects.get(definitionEffect.getActionId())) {
+
+                        // Si à l'id de l'effet demandé est associé un nombre d'éléments de 1
+                        case 1:
+                            // Et qu'à l'effet courant de l'item courant est associé un nombre d'éléments de 1
+                            if (definitionEffect.getParams()[2] == 1){
+                                // Alors on prend en compte le bonus
+                                sumForItem += definitionEffect.getParams()[0];
+                            }
+                            break;
+                        case 2:
+                            if (definitionEffect.getParams()[2] == 2){
+                                sumForItem += definitionEffect.getParams()[0];
+                            }
+                            break;
+                        case 3:
+                            if (definitionEffect.getParams()[2] == 3){
+                                sumForItem += definitionEffect.getParams()[0];
+                            }
+                            break;
+                        // Si à l'id de l'effet demandé est associé un nombre d'éléments nul
+                        // Alors il s'agit d'un effet basique, qui n'a pas de nombre d'éléments associé
+                        case 0:
+                            // On ajoute directement la valeur de l'effet à la somme pour l'item courant
+                            sumForItem += definitionEffect.getParams()[0];
+                            break;
+                    }
                 }
             }
 
@@ -401,6 +419,7 @@ public class BuildService {
         if (item == null) {
             return false;
         }
+        // On retourne vrai si l'item est une épique / de rareté 7
         return item.getBaseParameters().getRarity() == 7;
     }
 
@@ -408,6 +427,7 @@ public class BuildService {
         if (item == null) {
             return false;
         }
+        // On retourne vrai si l'item est une relique / de rareté 5
         return item.getBaseParameters().getRarity() == 5;
     }
 
@@ -421,17 +441,38 @@ public class BuildService {
     
     private void handleUniqueItems(List<Item> filteredItems, Map<String, Item> equipmentPositionsMap, String position, Boolean epicItem, Boolean relicItem) {
         if (!epicItem) {
+            // On vérifie si l'item est une épique
             epicItem = isEpicItem(equipmentPositionsMap.get(position));
         }
         if (!relicItem) {
+            // On vérifie si l'item est une relique
             relicItem = isRelicItem(equipmentPositionsMap.get(position));
         }
 
+        // Si l'item est une épique, on supprime toutes les épiques de la liste des items filtrés
         if (epicItem) {
             getRidOfEpicItems(filteredItems);
         }
+        // Si l'item est une relique, on supprime toutes les reliques de la liste des items filtrés
         if (relicItem) {
             getRidOfRelicItems(filteredItems);
         }
+    }
+
+    private List<Integer> getRarities(Build.Cost cost, List<Integer> rarities) {
+        switch (cost) {
+            case low:
+                rarities = Arrays.asList(1, 2);
+                break;
+            case medium:
+                rarities = Arrays.asList(1, 2, 3);
+                break;
+            case high:
+                rarities = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid cost: " + cost);
+        }
+        return rarities;
     }
 }

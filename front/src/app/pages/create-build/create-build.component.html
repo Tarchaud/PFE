@@ -31,7 +31,19 @@
             <div *ngFor="let a of action.value">
               <input type="checkbox" [value]="a.definition.idActionDefinition" name="selectedEffects" [(ngModel)]="selectedEffect[a.definition.idActionDefinition]">
               {{ a.definition.effect }}
-            </div>
+          
+              <div *ngIf="a.definition.idActionDefinition == 1068 && selectedEffect[a.definition.idActionDefinition]" class="indent">
+                  <input type="checkbox" name="maitrise1">Maîtrise élémentaire sur 1 élément aléatoire<br>
+                  <input type="checkbox" name="maitrise2">Maîtrise élémentaire sur 2 éléments aléatoires<br>
+                  <input type="checkbox" name="maitrise3">Maîtrise sur 3 éléments aléatoires
+              </div>
+
+              <div *ngIf="a.definition.idActionDefinition == 1069 && selectedEffect[a.definition.idActionDefinition]" class="indent">
+                  <input type="checkbox" name="resistance1">Résistance élémentaire sur 1 élément aléatoire<br>
+                  <input type="checkbox" name="resistance2">Résistance élémentaire sur 2 éléments aléatoires<br>
+                  <input type="checkbox" name="resistance3">Résistance élémentaire sur 3 éléments aléatoires
+              </div>
+          </div>
             <hr />
           </div>
         </div>
