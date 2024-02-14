@@ -12,7 +12,6 @@ docker-compose down
 
 # To do
 back :
-- cas particulier des reliques / épiques
 - cas particulier de la maîtrise élémentaire sur un ou plusieurs éléments -> la séparer en 3
 - connexion / inscription
 

@@ -110,6 +110,9 @@ public class BuildService {
         // Hashmap avec les positions possibles des items en clés
         Map<String, Item> equipmentPositionsMap = new LinkedHashMap<>();
 
+        Boolean epicItem = false;
+        Boolean relicItem = false;
+
         equipmentPositionsMap.put("PET", null);
         equipmentPositionsMap.put("", null); // equipmentPosition des montures = []
         equipmentPositionsMap.put("FIRST_WEAPON", null);
@@ -153,16 +156,22 @@ public class BuildService {
                 // Armes
                 else if (equipmentPosition.equals("FIRST_WEAPON")) {
                     setOptimalWeapon(filteredItems, effects, equipmentPositionsMap);
+
+                    // Il ne peut y avoir qu'une seule épique et une seule relique par build
+                    handleUniqueItems(filteredItems, equipmentPositionsMap, "FIRST_WEAPON", epicItem, relicItem);
                 }
                 else if (equipmentPosition.equals("SECOND_WEAPON")) {
+                    handleUniqueItems(filteredItems, equipmentPositionsMap, "SECOND_WEAPON", epicItem, relicItem);
                     continue;
                 }
                 // Anneaux
                 else if (equipmentPosition.equals("LEFT_HAND")) {
                     setLeftRing(filteredItems, effects, equipmentPositionsMap);
+                    handleUniqueItems(filteredItems, equipmentPositionsMap, "LEFT_HAND", epicItem, relicItem);
                 }
                 else if (equipmentPosition.equals("RIGHT_HAND")) {
                     setRightRing(filteredItems, effects, equipmentPositionsMap);
+                    handleUniqueItems(filteredItems, equipmentPositionsMap, "RIGHT_HAND", epicItem, relicItem);
                 }
 
             } else {
@@ -174,6 +183,8 @@ public class BuildService {
             
                 // On ajoute à la hashmap l'item optimal pour l'equipmentPosition courante
                 equipmentPositionsMap.put(equipmentPosition, getOptimalItem(itemsWithGivenEquipmentPosition, effects));
+
+                handleUniqueItems(filteredItems, equipmentPositionsMap, equipmentPosition, epicItem, relicItem);
                 
                 // On supprime de la liste des items filtrés tous ceux qui ont l'equipmentPosition courante
                 filteredItems.removeIf(item -> Arrays.asList(equipmentItemTypeService.getEquipmentPositionByItemTypeId(item.getBaseParameters().getItemTypeId())).contains(equipmentPosition));
@@ -385,5 +396,42 @@ public class BuildService {
 
         return itemSelected;
     }
+
+    private Boolean isEpicItem(Item item) {
+        if (item == null) {
+            return false;
+        }
+        return item.getBaseParameters().getRarity() == 7;
+    }
+
+    private Boolean isRelicItem(Item item) {
+        if (item == null) {
+            return false;
+        }
+        return item.getBaseParameters().getRarity() == 5;
+    }
+
+    private void getRidOfEpicItems(List<Item> items) {
+        items.removeIf(item -> item.getBaseParameters().getRarity() == 7);
+    }
+
+    private void getRidOfRelicItems(List<Item> items) {
+        items.removeIf(item -> item.getBaseParameters().getRarity() == 5);
+    }
     
+    private void handleUniqueItems(List<Item> filteredItems, Map<String, Item> equipmentPositionsMap, String position, Boolean epicItem, Boolean relicItem) {
+        if (!epicItem) {
+            epicItem = isEpicItem(equipmentPositionsMap.get(position));
+        }
+        if (!relicItem) {
+            relicItem = isRelicItem(equipmentPositionsMap.get(position));
+        }
+
+        if (epicItem) {
+            getRidOfEpicItems(filteredItems);
+        }
+        if (relicItem) {
+            getRidOfRelicItems(filteredItems);
+        }
+    }
 }

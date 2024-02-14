@@ -41,6 +41,10 @@ public class Item {
         public int getItemTypeId() {
             return itemTypeId;
         }
+
+        public int getRarity() {
+            return rarity;
+        }
     }
 
     public static class ItemDef {
