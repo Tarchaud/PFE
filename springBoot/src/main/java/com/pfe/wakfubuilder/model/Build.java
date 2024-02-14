@@ -1,5 +1,10 @@
 package com.pfe.wakfubuilder.model;
 
+import java.util.Map;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 public class Build {
 
     public enum Cost {
@@ -8,27 +13,30 @@ public class Build {
         high
     }
 
-    private long id;
+    @Id
+    private ObjectId id;
     private String name;
     private int level;
     private Cost cost;
+    private Item[] items;
+    private Map<Integer, Integer> effects;
 
     public Build () {
-
+        this.items = new Item[15];
     }
-    public Build(long id, String name, int level, Cost cost) {
+    public Build(String name, int level, Cost cost) {
         super();
-        this.id = id;
         this.name = name;
         this.level = level;
         this.cost = cost;
+        this.items = new Item[15];
     }
 
-    public long getId() {
-        return id;
+    public String getId() {
+        return id.toHexString();
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -54,5 +62,21 @@ public class Build {
 
     public void setCost(Cost cost) {
         this.cost = cost;
+    }
+
+    public Item[] getItems() {
+        return items;
+    }
+
+    public void setItems(Item[] items) {
+        this.items = items;
+    }
+
+    public Map<Integer,Integer> getEffects() {
+        return effects;
+    }
+
+    public void setEffects(Map<Integer, Integer> effects) {
+        this.effects = effects;
     }
 }
