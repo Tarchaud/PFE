@@ -37,7 +37,7 @@ docker-compose up
 
 ## Arrêter l'application :
 ```bash
-Ctrl+Cou docker-compose down
+Ctrl+C ou docker-compose down
 ```
 
 ## Supprimer l'apprication
