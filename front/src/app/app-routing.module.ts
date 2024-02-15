@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'wiki-items', component: WikiItemsComponent },
   { path: 'liste-builds', component: BuildsComponent},
+  { path: 'mesbuilds', component: BuildsComponent},
   { path: 'build/:buildId', component: BuildComponent},
   { path: 'creation-build', component: CreateBuildComponent},
   { path: 'login', component: LoginComponent},

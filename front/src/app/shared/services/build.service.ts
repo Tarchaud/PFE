@@ -30,6 +30,11 @@ export class BuildService {
     return this.http.get<BuildI>('http://localhost:8080/build/' + id);
   }
 
+  getBuildByUserId(id : string) : Observable<BuildI[]> {
+    return this.http.get<BuildI[]>('http://localhost:8080/builds/' + id);
+
+  }
+
 
 
   createBuild(buildForm : any) : Observable<BuildI>{
