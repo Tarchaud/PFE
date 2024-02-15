@@ -31,15 +31,3 @@ Avant de lancer l'application, assurez-vous d'avoir installé Docker et Docker C
 
 ## Arrêter l'application :
 4. Ctrl+C ou docker-compose down
-
-# To do
-back :
-- get stats
-connexion / inscription:
-- retourner une erreur si déjà inscrit
-
-
-front:
-- affichage des stats
-- pouvoir cliquer sur un item du build
-- connexion / inscription
