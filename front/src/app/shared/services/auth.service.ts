@@ -3,24 +3,32 @@ import { UserI } from '../models/user-i';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isLoggedIn : boolean = false;
   user !: UserI;
-  auhtID : { username : string, password : string } = { username : "", password : "" };
+  authID : { username : string, password : string } = { username : "", password : "" };
 
   constructor(private http : HttpClient, private router : Router) { }
 
-  login() {
-    this.http.post<UserI>("http://localhost:3000/login", this.auhtID).subscribe({
+  login(loginForm : any) {
+    this.http.post<UserI>("http://localhost:8080/login", loginForm).subscribe({
       next : (data : UserI) => {
-        this.user = data;
-        this.isLoggedIn = true;
-        this.router.navigate(["/"]);
+        if(data) {
+          this.user = data;
+          this.isLoggedIn = true;
+          console.log(this.user);
+          this.router.navigate(["/"]);
+        }else {
+          Notify.failure("Veuillez vérifier vos identifiants de connexion.");
+        }
       },
       error : (err) => {
+        Notify.failure("Erreur de connexion \nVeuillez vérifier vos identifiants de connexion.");
         console.log(err);
       },
       complete : () => {
@@ -35,15 +43,23 @@ export class AuthService {
     this.router.navigate(["/"]);
   }
 
-  register() {
-    this.http.post<UserI>("http://localhost:3000/register", this.auhtID).subscribe({
+  register(registerForm : any) {
+    this.http.post<UserI>("http://localhost:8080/register", registerForm).subscribe({
       next : (data : UserI) => {
-        this.user = data;
-        this.isLoggedIn = true;
-        this.router.navigate(["/"]);
+        console.log(data);
+        if(data) {
+          this.user = data;
+          this.isLoggedIn = true;
+          console.log(this.user);
+          this.router.navigate(["/"]);
+        }else {
+          Notify.failure("Nom d'utilisateur déjà utilisé");
+        }
+
       },
       error : (err) => {
-        console.log(err);
+        Notify.failure("Erreur de création de compte \nVeuillez vérifier vos identifiants de connexion.");
+        console.log('error', err);
       },
       complete : () => {
         console.log("Register completed");

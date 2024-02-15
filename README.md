@@ -35,7 +35,9 @@ Avant de lancer l'application, assurez-vous d'avoir installé Docker et Docker C
 # To do
 back :
 - get stats
-- connexion / inscription
+connexion / inscription:
+- retourner une erreur si déjà inscrit
+
 
 front:
 - affichage des stats
