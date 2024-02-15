@@ -21,13 +21,26 @@ Avant de lancer l'application, assurez-vous d'avoir installé Docker et Docker C
 # Installation et utilisation
 
 ## Clonez ce dépôt Git sur votre machine locale en utilisant la commande suivante :
-1. git clone https://github.com/Tarchaud/PFE/
+```bash
+git clone https://github.com/Tarchaud/PFE/
+```
 
 ## Naviguez vers le répertoire cloné :
-2. cd path/to/PFE
+```bash
+cd PFE/
+```
 
 ## Lancer l'application :
-3. docker-compose up
+```bash
+docker-compose up
+```
 
 ## Arrêter l'application :
-4. Ctrl+C ou docker-compose down
+```bash
+Ctrl+C ou docker-compose down
+```
+
+## Supprimer l'apprication
+```bash
+docker-compose down --rmi all -v
+```
