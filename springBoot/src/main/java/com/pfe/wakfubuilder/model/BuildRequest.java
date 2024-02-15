@@ -11,6 +11,7 @@ public class BuildRequest {
     private int level;
     private Build.Cost cost;
     private Map<Integer, Integer> effects;
+    private String[] userInfos;
 
     public BuildRequest() {
     }
@@ -57,5 +58,14 @@ public class BuildRequest {
 
     public void setEffects(Map<Integer,Integer> effects) {
         this.effects = effects;
+    }
+
+
+    public String[] getUserInfos() {
+        return userInfos;
+    }
+
+    public void setUserInfos(String[] userInfos) {
+        this.userInfos = userInfos;
     }
 }

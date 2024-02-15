@@ -7,4 +7,5 @@ export interface BuildI {
   cost : string;
   items : ItemI[];
   effects : { [key: number]: number };
+  userInfos : string[];
 }

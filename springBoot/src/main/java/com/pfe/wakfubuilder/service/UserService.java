@@ -12,16 +12,27 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean createUser(String username, String password) {
+    public User createUser(String username, String password) {
         if (userRepository.findByUsername(username) != null) {
-            return false;
+            return null;
         }
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        userRepository.save(user);
+        User userSave = userRepository.save(user);
 
-        return true;
+        return userSave;
     }
+
+    public User getUserLogin(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return null;
+        }else if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return user;
+    }
+
 }

@@ -3,11 +3,14 @@ package com.pfe.wakfubuilder.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(collection = "users")
 public class User {
     @Id
     private String id;
     private String username;
+    @JsonIgnore
     private String password;
 
     public User() {

@@ -26,11 +26,11 @@ export class LoginComponent {
 
   login() {
     console.log("Login");
-    this.auth.authID = {
+    let loginForm = {
       username : this.userNameLogIn,
       password : this.passwordLogIn
-    };
-    // this.auth.login();
+    }
+    this.auth.login(loginForm);
   }
 
   register() {
@@ -41,7 +41,7 @@ export class LoginComponent {
       password : this.passwordSignUp
     }
     console.log(registerForm);
-    
+
     this.auth.register(registerForm);
   }
 

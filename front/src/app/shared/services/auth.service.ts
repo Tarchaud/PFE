@@ -13,11 +13,14 @@ export class AuthService {
 
   constructor(private http : HttpClient, private router : Router) { }
 
-  login() {
-    this.http.post<UserI>("http://localhost:8080/login", this.authID).subscribe({
+  login(loginForm : any) {
+    this.http.post<UserI>("http://localhost:8080/login", loginForm).subscribe({
       next : (data : UserI) => {
+        console.log(data);
+
         this.user = data;
         this.isLoggedIn = true;
+        console.log(this.user);
         this.router.navigate(["/"]);
       },
       error : (err) => {
@@ -40,10 +43,12 @@ export class AuthService {
       next : (data : UserI) => {
         this.user = data;
         this.isLoggedIn = true;
+        console.log(this.user);
+
         this.router.navigate(["/"]);
       },
       error : (err) => {
-        console.log(err);
+        console.log('error', err);
       },
       complete : () => {
         console.log("Register completed");
