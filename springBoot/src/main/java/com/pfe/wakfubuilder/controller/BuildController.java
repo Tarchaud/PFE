@@ -25,6 +25,11 @@ public class BuildController {
         return buildService.getBuild(id);
     }
 
+    @GetMapping("/builds/user/{idUser}")
+    public List<Build> getBuildsByUser(@PathVariable String idUser) {
+        return buildService.getBuildsByUser(idUser);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value ="build/{id}")
     public void deleteBuild(@PathVariable String id) {
         buildService.deleteBuild(id);
@@ -42,6 +47,6 @@ public class BuildController {
 
     @RequestMapping(method = RequestMethod.POST, value = "generateBuild")
     public Build generateBuild(@RequestBody BuildRequest buildRequest) {
-        return buildService.generateBuild(buildRequest.getName(), buildRequest.getLevel(), buildRequest.getCost(), buildRequest.getEffects());
+        return buildService.generateBuild(buildRequest.getName(), buildRequest.getLevel(), buildRequest.getCost(), buildRequest.getEffects(), buildRequest.getUserInfos());
     }
 }

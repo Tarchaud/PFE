@@ -14,12 +14,14 @@ import { BuildService } from 'src/app/shared/services/build.service';
 
 //Models
 import { BuildI } from 'src/app/shared/models/build-i';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 class buildFormI {
   name : string = "";
   level : number = 100;
   cost : string = "low";
   effects : { [key: number]: number } = {};
+  userInfos : string[] = [];
 }
 
 @Component({
@@ -38,7 +40,7 @@ export class CreateBuildComponent {
   step = 0;
 
 
-  constructor(public action : ActionService, private buildService : BuildService, private route : Router) { }
+  constructor(public action : ActionService, private buildService : BuildService, private route : Router, private auth : AuthService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -76,15 +78,28 @@ export class CreateBuildComponent {
       effectsMap[effect] = param;
     });
 
-
-    let buildForm = {
-      name : this.nameBuild,
-      level : this.levelBuild,
-      cost : this.costBuild,
-      effects : effectsMap
+    let buildForm : buildFormI;
+    if (this.auth.isLoggedIn) {
+      buildForm = {
+        name : this.nameBuild,
+        level : this.levelBuild,
+        cost : this.costBuild,
+        effects : effectsMap,
+        userInfos : [this.auth.user.id, this.auth.user.username]
+      }
+    }else {
+      buildForm = {
+        name : this.nameBuild,
+        level : this.levelBuild,
+        cost : this.costBuild,
+        effects : effectsMap,
+        userInfos : ["", "Anonyme"]
+      }
     }
 
     if( this.effectBuild.length == 1){
+      console.log(buildForm);
+
       this.sendRequest(buildForm);
     }else {
       this.step = 1;
@@ -108,11 +123,23 @@ export class CreateBuildComponent {
       effectsMap[effect] = param;
     });
 
-    let buildForm = {
-      name : this.nameBuild,
-      level : this.levelBuild,
-      cost : this.costBuild,
-      effects : effectsMap
+    let buildForm : buildFormI;
+    if (this.auth.isLoggedIn) {
+      buildForm = {
+        name : this.nameBuild,
+        level : this.levelBuild,
+        cost : this.costBuild,
+        effects : effectsMap,
+        userInfos : [this.auth.user.id, this.auth.user.username]
+      }
+    }else {
+      buildForm = {
+        name : this.nameBuild,
+        level : this.levelBuild,
+        cost : this.costBuild,
+        effects : effectsMap,
+        userInfos : ["", "Anonyme"]
+      }
     }
     console.log(buildForm);
 

@@ -65,9 +65,13 @@ public class BuildService {
         buildRepository.save(build);
     }
 
+    public List<Build> getBuildsByUser(String idUser) {
+        return buildRepository.findByUserInfos(idUser);
+    }
+
     // Map<Integer, Integer> effects représente des couples id d'effet / nombre d'éléments
     // car certains effets s'appliquent sur un nombre variable d'éléments
-    public Build generateBuild(String name, int level, Build.Cost cost, Map<Integer, Integer> effects) {
+    public Build generateBuild(String name, int level, Build.Cost cost, Map<Integer, Integer> effects, String[] userInfo) {
 
         // Récupérer les raretés en fonction du coût
         List<Integer> rarities  = getRarities(cost, new ArrayList<>());
@@ -89,6 +93,7 @@ public class BuildService {
         build.setLevel(level);
         build.setCost(cost);
         build.setEffects(effects);
+        build.setUserInfos(userInfo);
         build.setItems(selectedItems.toArray(new Item[selectedItems.size()]));
         saveBuild(build);
 
@@ -327,7 +332,9 @@ public class BuildService {
         equipmentPositionsMap.put("LEFT_HAND", leftRingSelected);
 
         // On supprime tous les anneaux du même nom dans la liste, car un même anneau apparaît sous différentes raretés
-        filteredItems.removeIf(item -> item.getTitle().getFr().equals(leftRingSelected.getTitle().getFr()));
+        if ( leftRingSelected != null) {
+            filteredItems.removeIf(item -> item.getTitle().getFr().equals(leftRingSelected.getTitle().getFr()));
+        }
     }
 
     private void setRightRing(List<Item> filteredItems, Map<Integer, Integer> effects, Map<String, Item> equipmentPositionsMap) {
