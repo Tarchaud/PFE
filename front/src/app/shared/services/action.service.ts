@@ -10,7 +10,7 @@ import { ActionI } from '../models/action-i';
 export class ActionService {
   public arr_actions : ActionI[] = [];
   public map_actions = new Map<number, ActionI>();
-  public keyEffects : string[] = ["Gain", "Boost", "Soin", "Dommage"]
+  public keyEffects : string[] = ["Gain", "Boost"]
   public map_Effects !: Map<string, ActionI[]>;
   public arr_actions_filtered : ActionI[] = [];
 
@@ -58,7 +58,7 @@ export class ActionService {
   filterEffects(arr_actions : ActionI[] ) : ActionI[] {
     let arr : ActionI[] = [];
     let deboost : string = 'Deboost';
-    let id_to_remove : number[] = [979,832,1020,400, 2001, 300, 865,330,843,304];
+    let id_to_remove : number[] = [979,832,1020,400, 2001, 300, 865,330,843,304, 24, 1084, 1, 1083];
     for (let i = 0; i < arr_actions.length; i++) {
       if (arr_actions[i].definition.effect.search(deboost) == -1 && !id_to_remove.includes(arr_actions[i].definition.idActionDefinition) ){
         arr.push(arr_actions[i]);
