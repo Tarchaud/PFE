@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
+class registerForm {
+  username : string = "";
+  password : string = "";
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,7 +26,7 @@ export class LoginComponent {
 
   login() {
     console.log("Login");
-    this.auth.auhtID = {
+    this.auth.authID = {
       username : this.userNameLogIn,
       password : this.passwordLogIn
     };
@@ -30,11 +35,14 @@ export class LoginComponent {
 
   register() {
     console.log("Register");
-    this.auth.auhtID = {
+
+    let registerForm = {
       username : this.userNameSignUp,
       password : this.passwordSignUp
-    };
-    // this.auth.register();
+    }
+    console.log(registerForm);
+    
+    this.auth.register(registerForm);
   }
 
   initForm() {

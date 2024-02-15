@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 export class AuthService {
   isLoggedIn : boolean = false;
   user !: UserI;
-  auhtID : { username : string, password : string } = { username : "", password : "" };
+  authID : { username : string, password : string } = { username : "", password : "" };
 
   constructor(private http : HttpClient, private router : Router) { }
 
   login() {
-    this.http.post<UserI>("http://localhost:3000/login", this.auhtID).subscribe({
+    this.http.post<UserI>("http://localhost:8080/login", this.authID).subscribe({
       next : (data : UserI) => {
         this.user = data;
         this.isLoggedIn = true;
@@ -35,8 +35,8 @@ export class AuthService {
     this.router.navigate(["/"]);
   }
 
-  register() {
-    this.http.post<UserI>("http://localhost:3000/register", this.auhtID).subscribe({
+  register(registerForm : any) {
+    this.http.post<UserI>("http://localhost:8080/register", registerForm).subscribe({
       next : (data : UserI) => {
         this.user = data;
         this.isLoggedIn = true;
