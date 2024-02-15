@@ -1,6 +1,7 @@
 package com.pfe.wakfubuilder.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
     @Id
     private String id;
+    
+    @Indexed(unique = true)
     private String username;
     @JsonIgnore
     private String password;

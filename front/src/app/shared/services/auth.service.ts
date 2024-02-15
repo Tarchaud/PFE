@@ -3,6 +3,8 @@ import { UserI } from '../models/user-i';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,14 +18,17 @@ export class AuthService {
   login(loginForm : any) {
     this.http.post<UserI>("http://localhost:8080/login", loginForm).subscribe({
       next : (data : UserI) => {
-        console.log(data);
-
-        this.user = data;
-        this.isLoggedIn = true;
-        console.log(this.user);
-        this.router.navigate(["/"]);
+        if(data) {
+          this.user = data;
+          this.isLoggedIn = true;
+          console.log(this.user);
+          this.router.navigate(["/"]);
+        }else {
+          Notify.failure("Veuillez vérifier vos identifiants de connexion.");
+        }
       },
       error : (err) => {
+        Notify.failure("Erreur de connexion \nVeuillez vérifier vos identifiants de connexion.");
         console.log(err);
       },
       complete : () => {
@@ -41,13 +46,19 @@ export class AuthService {
   register(registerForm : any) {
     this.http.post<UserI>("http://localhost:8080/register", registerForm).subscribe({
       next : (data : UserI) => {
-        this.user = data;
-        this.isLoggedIn = true;
-        console.log(this.user);
+        console.log(data);
+        if(data) {
+          this.user = data;
+          this.isLoggedIn = true;
+          console.log(this.user);
+          this.router.navigate(["/"]);
+        }else {
+          Notify.failure("Nom d'utilisateur déjà utilisé");
+        }
 
-        this.router.navigate(["/"]);
       },
       error : (err) => {
+        Notify.failure("Erreur de création de compte \nVeuillez vérifier vos identifiants de connexion.");
         console.log('error', err);
       },
       complete : () => {
