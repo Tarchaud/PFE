@@ -22,7 +22,7 @@ Avant de lancer l'application, assurez-vous d'avoir installé Docker et Docker C
 
 ## Clonez ce dépôt Git sur votre machine locale en utilisant la commande suivante :
 ```bash
-git clone https://github.com/Tarchaud/PFE/
+git clone https://github.com/Tarchaud/PFE.git
 ```
 
 ## Naviguez vers le répertoire cloné :
