@@ -2,7 +2,10 @@
   <div class="box_build">
     <div class="header_build">
       <div class="build_infos">
-        <h1>{{ build.name }}</h1>
+        <div>
+          <h3>{{ build.name }} </h3>
+          <h4>Créateur : {{ build.userInfos[1] }}</h4>
+        </div>
         <div>
           <h3>Niveau : {{ build.level }}</h3>
           <h3>Coût : {{ build.cost | sentenceCost }}</h3>
